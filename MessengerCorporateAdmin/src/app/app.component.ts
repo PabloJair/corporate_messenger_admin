@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from '@angular/router';
+import { Location } from '@angular/common';
+import {UserService} from './services/UserService';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +11,20 @@ import {Router} from '@angular/router';
 export class AppComponent {
   title = 'Bienvenido';
   private currentUrl = '';
-  specialPage: boolean;
+  specialPage: boolean = false
 
   private specialPages: any[] = [
     '/login',
   ];
 
   constructor( private router: Router,
-               private location: Location) {
+               private location: Location,
+               private userService:UserService,
+               ) {
 
+    if(userService.getCurrentUser==null) {
+      this.router.navigateByUrl("/login");
+    }
     this.router.events.subscribe((route: any) => {
       if (route.routerEvent) {
         this.currentUrl = route.routerEvent.url;

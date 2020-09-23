@@ -1,3 +1,7 @@
 export const environment = {
-  production: true
+  production: true,
+
+  urlServer: 'https://demo.coffeecode.com.mx/',
+  apiServer: 'service/public/',
+  uploadImage: 'service/public/uploads/',
 };
