@@ -3,8 +3,7 @@ import { HelpComponent } from './views/help/help.component';
 import { Settings1Component } from './views/settings/settings1/settings1.component';
 import { Settings2Component } from './views/settings/settings2/settings2.component';
 import { Settings3Component } from './views/settings/settings3/settings3.component';
-import { Map3Component } from './views/maps/map3/map3.component';
-import { Form3Component } from './views/forms/form3/form3.component';
+
 import { PopoversComponent } from './views/components/popovers/popovers.component';
 import { TooltipsComponent } from './views/components/tooltips/tooltips.component';
 import { TimePickerComponent } from './views/components/time-picker/time-picker.component';
@@ -25,10 +24,7 @@ import { UtilitiesComponent } from './views/css/utilities/utilities.component';
 import { MediaObjectComponent } from './views/css/media-object/media-object.component';
 import { GridComponent } from './views/css/grid/grid.component';
 import { AlertComponent } from './shared/alerts/alert/alert.component';
-import { Form2Component } from './views/forms/form2/form2.component';
-import { Form1Component } from './views/forms/form1/form1.component';
-import { Map2Component } from './views/maps/map2/map2.component';
-import { Map1Component } from './views/maps/map1/map1.component';
+
 import { IconsComponent } from './views/css/icons/icons.component';
 import { TypographyComponent } from './views/css/typography/typography.component';
 import { ModalsComponent } from './views/modals/modals.component';
@@ -44,53 +40,30 @@ import { NotFoundComponent } from './views/errors/not-found/not-found.component'
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 import { LockComponent } from './views/pages/lock/lock.component';
-import { PricingComponent } from './views/pages/pricing/pricing.component';
-import { SinglePostComponent } from './views/pages/single-post/single-post.component';
-import { PostListingComponent } from './views/pages/post-listing/post-listing.component';
-import { CustomersComponent } from './views/pages/customers/customers.component';
-import { Dashboard1Component } from './views/dashboards/dashboard1/dashboard1.component';
-import { Dashboard2Component } from './views/dashboards/dashboard2/dashboard2.component';
-import { Dashboard3Component } from './views/dashboards/dashboard3/dashboard3.component';
-import { Dashboard4Component } from './views/dashboards/dashboard4/dashboard4.component';
-import { Dashboard5Component } from './views/dashboards/dashboard5/dashboard5.component';
+
+
 import { EventCalendarComponent } from './views/event-calendar/event-calendar.component';
 import { SectionsComponent } from './views/sections/sections.component';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
+import {AuthGuardService} from './service/auth-guard.service';
+import {HomeComponent} from './views/home/home.component';
 
 const routes: Route[] = [
-  { path: '', pathMatch: 'full', redirectTo: 'dashboards/v1' },
-  {
-    path: 'dashboards',
-    children: [
-      { path: 'v1', component: Dashboard1Component },
-      { path: 'v2', component: Dashboard2Component },
-      { path: 'v3', component: Dashboard3Component },
-      { path: 'v4', component: Dashboard4Component },
-      { path: 'v5', component: Dashboard5Component },
-    ],
-  },
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'lock', component: LockComponent },
+  { path: 'home', component: HomeComponent , canActivate: [AuthGuardService]},
 
-  {
-    path: 'pages',
-    children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'lock', component: LockComponent },
-      { path: 'pricing', component: PricingComponent },
-      { path: 'single-post', component: SinglePostComponent },
-      { path: 'post-listing', component: PostListingComponent },
-      { path: 'customers', component: CustomersComponent },
-    ],
-  },
   {
     path: 'profiles',
     children: [
       { path: 'profile1', component: Profile1Component },
       { path: 'profile2', component: Profile2Component },
       { path: 'profile3', component: Profile3Component },
-    ],
+    ], canActivate: [AuthGuardService],
   },
   {
     path: 'settings',
@@ -98,7 +71,7 @@ const routes: Route[] = [
       { path: 'settings1', component: Settings1Component },
       { path: 'settings2', component: Settings2Component },
       { path: 'settings3', component: Settings3Component },
-    ],
+    ], canActivate: [AuthGuardService],
   },
   {
     path: 'components',
@@ -116,14 +89,14 @@ const routes: Route[] = [
       { path: 'time-picker', component: TimePickerComponent },
       { path: 'tooltips', component: TooltipsComponent },
       { path: 'popovers', component: PopoversComponent },
-    ],
+    ], canActivate: [AuthGuardService],
   },
   {
     path: 'tables',
     children: [
       { path: 'table1', component: BasicTableComponent },
       { path: 'table2', component: Table2Component },
-    ],
+    ], canActivate: [AuthGuardService],
   },
   {
     path: 'charts',
@@ -131,15 +104,7 @@ const routes: Route[] = [
       { path: 'chart1', component: Chart1Component },
       { path: 'chart2', component: Chart2Component },
       { path: 'chart3', component: Chart3Component },
-    ],
-  },
-  {
-    path: 'maps',
-    children: [
-      { path: 'map1', component: Map1Component },
-      { path: 'map2', component: Map2Component },
-      { path: 'map3', component: Map3Component },
-    ],
+    ], canActivate: [AuthGuardService],
   },
   {
     path: 'css',
@@ -152,23 +117,16 @@ const routes: Route[] = [
       { path: 'typography', component: TypographyComponent },
       { path: 'colors', component: ColorsComponent },
       { path: 'shadow', component: ShadowComponent },
-    ],
+    ], canActivate: [AuthGuardService],
   },
-  {
-    path: 'forms',
-    children: [
-      { path: 'form1', component: Form1Component },
-      { path: 'form2', component: Form2Component },
-      { path: 'form3', component: Form3Component },
-    ],
-  },
-  { path: 'alerts', component: AlertComponent },
-  { path: 'modals', component: ModalsComponent },
-  { path: 'calendar', component: EventCalendarComponent },
-  { path: 'help', component: HelpComponent },
-  { path: 'sections', component: SectionsComponent },
-  { path: 'test', component: TestComponent },
-  { path: '**', component: NotFoundComponent },
+
+  { path: 'alerts', component: AlertComponent, canActivate: [AuthGuardService] },
+  { path: 'modals', component: ModalsComponent, canActivate: [AuthGuardService] },
+  { path: 'calendar', component: EventCalendarComponent, canActivate: [AuthGuardService] },
+  { path: 'help', component: HelpComponent, canActivate: [AuthGuardService] },
+  { path: 'sections', component: SectionsComponent, canActivate: [AuthGuardService] },
+  { path: 'test', component: TestComponent , canActivate: [AuthGuardService]},
+  { path: '**', component: NotFoundComponent , canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

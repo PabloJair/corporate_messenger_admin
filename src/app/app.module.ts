@@ -14,10 +14,12 @@ import {ErrorModule} from './views/errors/error.module';
 
 // main layout
 import {NavigationModule} from './main-layout/navigation/navigation.module';
+import { HomeComponent } from './views/home/home.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,

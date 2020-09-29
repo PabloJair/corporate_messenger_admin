@@ -4,116 +4,24 @@
     <!-- Sidebar navigation -->
     <mdb-sidenav #sidenav class=" fixed" [fixed]="true">
 
-        <logo>
-            <!-- Logo -->
-            <li>
-                <div class="logo-wrapper waves-light">
-                    <a href="#">
-                        <img src="../../../assets/img/angular-mdb.png" class="img-fluid flex-center">
-                    </a>
-                </div>
-            </li>
-            <!--/. Logo -->
-        </logo>
 
+
+      <div class="col-xl-12 col-md-12 mb-12 text-center" >
+
+        <div class="text-center">
+          <img src="{{currentUser.logotype_company}}" class="rounded img-fluid" alt="..."  style="width: 200px">
+        </div>
+
+        <p class=" flex-center title"  style="color: #0f0f0f">{{currentUser.name_company}} </p>
+        <p class=" flex-center" >{{currentUser.name_rol}}  </p>
+      </div>
         <links>
-            <!--Social-->
-            <li>
-                <ul class="social d-flex">
-                    <li>
-                        <a class="icons-sm fb-ic">
-                            <mdb-icon fab icon="facebook-f" class="mr-1"></mdb-icon>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="icons-sm pin-ic">
-                            <mdb-icon fab icon="pinterest-p" class="mr-1"> </mdb-icon>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="icons-sm gplus-ic">
-                            <mdb-icon fab icon="google-plus-g" class="mr-1"> </mdb-icon>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="icons-sm tw-ic">
-                            <mdb-icon fab icon="twitter" class="mr-1"></mdb-icon>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <!--/Social-->
-            <!--Search Form-->
-            <li>
-                <form class="search-form" role="search">
-                    <div class="form-group md-form waves-light" mdbWavesEffect>
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                </form>
-            </li>
+
             <!--/.Search Form-->
             <!-- Side navigation links -->
             <li>
                 <ul class="collapsible collapsible-accordion">
                     <mdb-squeezebox [multiple]="false" aria-multiselectable="false">
-
-                        <mdb-item>
-                            <mdb-item-head mdbWavesEffect>
-                                <mdb-icon fas icon="tachometer-alt" class="mr-1"></mdb-icon> Dashboards
-                            </mdb-item-head>
-                            <mdb-item-body>
-                                <ul>
-                                    <li>
-                                        <a routerLink="dashboards/v1" class="waves-effect" mdbWavesEffect>Version 1</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="dashboards/v2" class="waves-effect" mdbWavesEffect>Version 2</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="dashboards/v3" class="waves-effect" mdbWavesEffect>Version 3</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="dashboards/v4" class="waves-effect" mdbWavesEffect>Version 4</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="dashboards/v5" class="waves-effect" mdbWavesEffect>Version 5</a>
-                                    </li>
-                                </ul>
-                            </mdb-item-body>
-                        </mdb-item>
-                        <mdb-item>
-                            <mdb-item-head mdbWavesEffect>
-                                <mdb-icon fas icon="camera" class="mr-1"></mdb-icon> Pages
-                            </mdb-item-head>
-                            <mdb-item-body>
-                                <ul>
-                                    <li>
-                                        <a routerLink="pages/login" class="waves-effect" mdbWavesEffect>Login</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="pages/register" class="waves-effect" mdbWavesEffect>Register</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="pages/pricing" class="waves-effect" mdbWavesEffect>Pricing</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="pages/lock" class="waves-effect" mdbWavesEffect>Lock screen</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="pages/single-post" class="waves-effect" mdbWavesEffect>Single
-                                            post</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="pages/post-listing" class="waves-effect" mdbWavesEffect>Post
-                                            listing</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="pages/customers" class="waves-effect"
-                                           mdbWavesEffect>Customers</a>
-                                    </li>
-                                </ul>
-                            </mdb-item-body>
-                        </mdb-item>
                         <mdb-item>
                             <mdb-item-head mdbWavesEffect>
                                 <mdb-icon fas icon="user" class="mr-1"></mdb-icon> Profiles
@@ -216,24 +124,6 @@
                                     <li>
                                         <a routerLink="components/popovers" class="waves-effect"
                                            mdbWavesEffect>Popovers</a>
-                                    </li>
-                                </ul>
-                            </mdb-item-body>
-                        </mdb-item>
-                        <mdb-item>
-                            <mdb-item-head mdbWavesEffect>
-                                <mdb-icon far icon="check-square" class="mr-1"></mdb-icon> Forms
-                            </mdb-item-head>
-                            <mdb-item-body>
-                                <ul>
-                                    <li>
-                                        <a routerLink="forms/form1" class="waves-effect" mdbWavesEffect>Basic</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="forms/form2" class="waves-effect" mdbWavesEffect>Extended</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="forms/form3" class="waves-effect" mdbWavesEffect>Validation</a>
                                     </li>
                                 </ul>
                             </mdb-item-body>
@@ -365,39 +255,28 @@
         <logo>
             <!-- Breadcrumb-->
             <div class="breadcrumbs breadcrumb-dn mr-auto">
-                <p>Material Design for Bootstrap</p>
+                <p>Bienvenido: {{currentUser.name}} {{currentUser.maternal_surname}}</p>
             </div>
             <!--/. Breadcrumb-->
         </logo>
         <navlinks>
 
             <ul class="nav navbar-nav nav-flex-icons ml-auto ie-double-nav">
-                <li class="nav-item">
-                    <a class="nav-link waves-light" mdbWavesEffect>
-                        <mdb-icon far icon="envelope" class="mr-1"></mdb-icon>
-                        <span class="clearfix d-none d-sm-inline-block">Contact</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-light" mdbWavesEffect>
-                        <mdb-icon far icon="comments" class="mr-1"></mdb-icon>
-                        <span class="clearfix d-none d-sm-inline-block">Support</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-light" mdbWavesEffect>
-                        <mdb-icon fas icon="user" class="mr-1"></mdb-icon>
-                        <span class="clearfix d-none d-sm-inline-block">Account</span>
-                    </a>
-                </li>
+
                 <li class="nav-item dropdown btn-group" dropdown>
+
                     <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-                        Dropdown
+                      <img src="{{currentUser.photo_path}}" alt="thumbnail" class="img-thumbnail rounded-circle"
+                           style="width: 30px">
+
+                      <span class="clearfix d-none d-sm-inline-block">Cuenta</span>
                     </a>
                     <div class="dropdown-menu dropdown-primary dropdown-menu-right" role="menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                      <a class="dropdown-item" href="#">Mi Perfil</a>
+
+                      <a class="dropdown-item" href="#">Cambio de contraseña</a>
+
+                      <a class="dropdown-item" (click)="logOut()">Cerrar Sesión</a>
                     </div>
                 </li>
             </ul>

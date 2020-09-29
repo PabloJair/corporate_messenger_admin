@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,26 +10,25 @@ import { Location } from '@angular/common';
 
 })
 
-export class AppComponent implements OnInit {
-  values: string[] = ['Tag 1', 'Tag 2', 'Tag 4'];
-
-  specialPage: boolean;
+export class AppComponent implements OnInit , OnDestroy {
+  specialPage = false;
 
   private specialPages: any[] = [
-    '/pages/login',
-    '/pages/register',
-    '/pages/lock',
-    '/pages/pricing',
-    '/pages/single-post',
-    '/pages/post-listing'
+    '/login',
+    '/register',
+    '/lock',
   ];
+
+
 
   private currentUrl = '';
 
-  constructor(
-    private router: Router,
-    private location: Location
-  ) {
+  constructor(private router: Router, private location: Location) {
+
+
+  }
+
+  ngOnInit(): void {
 
     this.router.events.subscribe((route: any) => {
       if (route.routerEvent) {
@@ -40,10 +40,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnDestroy(): void {
   }
 
-  goBack(): void {
-    this.location.back();
-  }
 }

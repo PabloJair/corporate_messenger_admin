@@ -4,6 +4,7 @@
 	    <div class="container">
 	      <div class="row">
 	        <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto mt-lg-5">
+            <form [formGroup]="form">
 
 	          <!--Form with header-->
 	          <mdb-card bgColor="login-card" class="wow fadeIn z-depth-1" data-wow-delay="0.3s" style="animation-name: none; visibility: visible;">
@@ -11,40 +12,34 @@
 
 	              <!--Header-->
 	              <div class="form-header purple-gradient">
-	                <h3><mdb-icon fas icon="user" class="mt-2 mb-2"></mdb-icon> Log in:</h3>
+	                <h3><mdb-icon fas icon="user" class="mt-2 mb-2"></mdb-icon> Inicia sesión:</h3>
 	              </div>
 
-	              <!--Body-->
-	              <div class="md-form">
-	                <mdb-icon fas icon="user" class="white-text"></mdb-icon>
-	                <input type="text" id="orangeForm-name" class="form-control" mdbInput>
-	                <label for="orangeForm-name" class="">Your name</label>
-	              </div>
 	              <div class="md-form">
 	                <mdb-icon far icon="envelope" class="white-text"></mdb-icon>
-	                <input type="text" id="orangeForm-email" class="form-control" mdbInput>
-	                <label for="orangeForm-email" class="">Your email</label>
+	                <input type="text" id="orangeForm-email" class="form-control" mdbInput  formControlName="email">
+	                <label for="orangeForm-email" class="">Correo </label>
 	              </div>
 
 	              <div class="md-form">
 	                <mdb-icon fas icon="lock" class="white-text"></mdb-icon>
-	                <input type="password" id="orangeForm-pass" class="form-control" mdbInput>
-	                <label for="orangeForm-pass" class="">Your password</label>
+	                <input type="password" id="orangeForm-pass" class="form-control" formControlName="password" mdbInput >
+	                <label for="orangeForm-pass" class="">Tu contraseña</label>
 	              </div>
 
 	              <div class="text-center">
-	                <button mdbBtn gradient="purple" size="lg" class="waves-effect waves-light" mdbWavesEffect>Sign up</button>
+	                <button mdbBtn gradient="purple" size="lg" class="waves-effect waves-light" mdbWavesEffect [disabled]="!form.valid" (click)="login()">Entrar</button>
 	                <hr>
-	                <div class="inline-ul text-center d-flex justify-content-center">
-	                  <a class="icons-sm tw-ic px-2"><mdb-icon fab icon="twitter" class="white-text"></mdb-icon></a>
-	                  <a class="icons-sm li-ic px-2"><mdb-icon fab icon="linkedin-in" class="white-text"> </mdb-icon></a>
-	                  <a class="icons-sm ins-ic px-2"><mdb-icon fab icon="instagram" class="white-text"> </mdb-icon></a>
-	                </div>
+
 	              </div>
+
+
+
 
 	            </mdb-card-body>
 	          </mdb-card>
 	          <!--/Form with header-->
+            </form>
 
 	        </div>
 	      </div>
