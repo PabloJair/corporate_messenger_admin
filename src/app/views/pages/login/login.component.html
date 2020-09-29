@@ -1,0 +1,49 @@
+<header>
+	<section class="view intro intro-2 ">
+	  <div class="full-bg-img rgba-stylish-strong mask flex-center">
+	    <div class="container">
+	      <div class="row">
+	        <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto mt-lg-5">
+            <form [formGroup]="form">
+
+	          <!--Form with header-->
+	          <mdb-card bgColor="login-card" class="wow fadeIn z-depth-1" data-wow-delay="0.3s" style="animation-name: none; visibility: visible;">
+	            <mdb-card-body>
+
+	              <!--Header-->
+	              <div class="form-header purple-gradient">
+	                <h3><mdb-icon fas icon="user" class="mt-2 mb-2"></mdb-icon> Inicia sesión:</h3>
+	              </div>
+
+	              <div class="md-form">
+	                <mdb-icon far icon="envelope" class="white-text"></mdb-icon>
+	                <input type="text" id="orangeForm-email" class="form-control" mdbInput  formControlName="email">
+	                <label for="orangeForm-email" class="">Correo </label>
+	              </div>
+
+	              <div class="md-form">
+	                <mdb-icon fas icon="lock" class="white-text"></mdb-icon>
+	                <input type="password" id="orangeForm-pass" class="form-control" formControlName="password" mdbInput >
+	                <label for="orangeForm-pass" class="">Tu contraseña</label>
+	              </div>
+
+	              <div class="text-center">
+	                <button mdbBtn gradient="purple" size="lg" class="waves-effect waves-light" mdbWavesEffect [disabled]="!form.valid" (click)="login()">Entrar</button>
+	                <hr>
+
+	              </div>
+
+
+
+
+	            </mdb-card-body>
+	          </mdb-card>
+	          <!--/Form with header-->
+            </form>
+
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</section>
+</header>
