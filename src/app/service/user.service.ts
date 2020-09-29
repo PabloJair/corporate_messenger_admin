@@ -22,7 +22,7 @@ private currentUser: UserModel = null;
     if(this.currentUser == null) {
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
     }
-    return   this.currentUser
+    return   this.currentUser= new UserModel()
   }
 
 }

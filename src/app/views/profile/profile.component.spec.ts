@@ -1,22 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Profile3Component } from './profile3.component';
+import { ProfileComponent } from './profile.component';
 import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
 
-describe('Profile3Component', () => {
-  let component: Profile3Component;
-  let fixture: ComponentFixture<Profile3Component>;
+describe('ProfileComponent', () => {
+  let component: ProfileComponent;
+  let fixture: ComponentFixture<ProfileComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Profile3Component ],
+      declarations: [ ProfileComponent ],
       imports: [MDBBootstrapModulesPro.forRoot()]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Profile3Component);
+    fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -43,10 +43,6 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
 import { TimePickerComponent } from './components/time-picker/time-picker.component';
 import { TooltipsComponent } from './components/tooltips/tooltips.component';
 import { PopoversComponent } from './components/popovers/popovers.component';
-
-import { Profile1Component } from './profile/profile1/profile1.component';
-import { Profile2Component } from './profile/profile2/profile2.component';
-import { Profile3Component } from './profile/profile3/profile3.component';
 import { Settings1Component } from './settings/settings1/settings1.component';
 import { EventCalendarComponent } from './event-calendar/event-calendar.component';
 import { HelpComponent } from './help/help.component';
@@ -55,6 +51,8 @@ import { Settings3Component } from './settings/settings3/settings3.component';
 import { TestComponent } from './test/test/test.component';
 import { SectionsComponent } from './sections/sections.component';
 import {DeleteModalComponent} from './delete-modal/delete-modal.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FormatRolPipePipe } from '../pipes/format-rol-pipe.pipe';
 
 @NgModule({
   imports: [
@@ -72,6 +70,8 @@ import {DeleteModalComponent} from './delete-modal/delete-modal.component';
     CalendarModule.forRoot()
   ],
   declarations: [
+    FormatRolPipePipe,
+
     FooterComponent,
     BasicTableComponent,
     Chart1Component,
@@ -105,19 +105,20 @@ import {DeleteModalComponent} from './delete-modal/delete-modal.component';
     TimePickerComponent,
     TooltipsComponent,
     PopoversComponent,
-
-    Profile1Component,
-    Profile2Component,
-    Profile3Component,
+    ProfileComponent,
     Settings1Component,
     EventCalendarComponent,
     HelpComponent,
     Settings2Component,
     Settings3Component,
     TestComponent,
-    SectionsComponent
+    SectionsComponent,
+    FormatRolPipePipe,
+
   ],
   exports: [
+    FormatRolPipePipe,
+
     FooterComponent,
     BasicTableComponent,
     Chart1Component,

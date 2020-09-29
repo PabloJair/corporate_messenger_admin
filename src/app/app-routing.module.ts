@@ -33,9 +33,6 @@ import { Table2Component } from './views/tables/table2/table2.component';
 import { Chart2Component } from './views/charts/chart2/chart2.component';
 import { Chart1Component } from './views/charts/chart1/chart1.component';
 import { BasicTableComponent } from './views/tables/basic-table/basic-table.component';
-import { Profile1Component } from './views/profile/profile1/profile1.component';
-import { Profile2Component } from './views/profile/profile2/profile2.component';
-import { Profile3Component } from './views/profile/profile3/profile3.component';
 import { NotFoundComponent } from './views/errors/not-found/not-found.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
@@ -49,6 +46,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
 import {AuthGuardService} from './service/auth-guard.service';
 import {HomeComponent} from './views/home/home.component';
+import { ProfileComponent } from './views/profile/profile.component';
 
 const routes: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -56,15 +54,7 @@ const routes: Route[] = [
   { path: 'register', component: RegisterComponent },
   { path: 'lock', component: LockComponent },
   { path: 'home', component: HomeComponent , canActivate: [AuthGuardService]},
-
-  {
-    path: 'profiles',
-    children: [
-      { path: 'profile1', component: Profile1Component },
-      { path: 'profile2', component: Profile2Component },
-      { path: 'profile3', component: Profile3Component },
-    ], canActivate: [AuthGuardService],
-  },
+  { path: 'profile',component: ProfileComponent,canActivate: [AuthGuardService]},
   {
     path: 'settings',
     children: [

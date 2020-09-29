@@ -15,18 +15,20 @@ import {ErrorModule} from './views/errors/error.module';
 // main layout
 import {NavigationModule} from './main-layout/navigation/navigation.module';
 import { HomeComponent } from './views/home/home.component';
+import { FormatRolPipePipe } from './pipes/format-rol-pipe.pipe';
 
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent
+        HomeComponent,
+        
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         NavigationModule,
         AppRoutingModule,
-        FormsModule,
+        FormsModule,    
         SharedModule,
         ViewsModule,
         ErrorModule,
@@ -36,6 +38,8 @@ import { HomeComponent } from './views/home/home.component';
             apiKey: 'your key here'
         })
     ],
+ //   exports: [FormatRolPipePipe],
+
     providers: [MDBSpinningPreloader],
     bootstrap: [AppComponent],
     schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
