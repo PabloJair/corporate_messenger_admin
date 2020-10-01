@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {UserModel} from '../shared/models/UserModuleModel';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {ServerResponseModel} from '../shared/models/server-response-model';
 import {Router} from '@angular/router';
 import {UserService} from './user.service';
+import {UserModel} from './API/UserModel';
 
 @Injectable({
   providedIn: 'root'

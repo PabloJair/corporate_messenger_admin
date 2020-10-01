@@ -13,22 +13,23 @@ import {AgmCoreModule} from '@agm/core';
 import {ErrorModule} from './views/errors/error.module';
 
 // main layout
-import {NavigationModule} from './main-layout/navigation/navigation.module';
+import {NavigationModule} from './views/main-layout/navigation/navigation.module';
 import { HomeComponent } from './views/home/home.component';
-import { FormatRolPipePipe } from './pipes/format-rol-pipe.pipe';
+import { LoaderComponent } from './views/lodaer-component/loader.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
-        
+        LoaderComponent,
+
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         NavigationModule,
         AppRoutingModule,
-        FormsModule,    
+        FormsModule,
         SharedModule,
         ViewsModule,
         ErrorModule,
@@ -38,7 +39,7 @@ import { FormatRolPipePipe } from './pipes/format-rol-pipe.pipe';
             apiKey: 'your key here'
         })
     ],
- //   exports: [FormatRolPipePipe],
+ //   exports: [FormatRolPipe],
 
     providers: [MDBSpinningPreloader],
     bootstrap: [AppComponent],

@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {BehaviorSubject} from 'rxjs';
+import {UserService} from './service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -23,12 +24,14 @@ export class AppComponent implements OnInit , OnDestroy {
 
   private currentUrl = '';
 
-  constructor(private router: Router, private location: Location) {
+  constructor(private router: Router, private location: Location, private userService: UserService) {
 
 
   }
 
   ngOnInit(): void {
+
+
 
     this.router.events.subscribe((route: any) => {
       if (route.routerEvent) {

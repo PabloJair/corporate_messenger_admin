@@ -22,7 +22,14 @@ export class LoginComponent implements OnInit {
    private router: Router,
    private toastService: ToastService,
    private userService: UserService
-  ) { }
+  ) {
+    if (this.userService.getCurrentUser) {
+      this.router.navigateByUrl('/home');
+
+      return
+    }
+
+  }
   title = 'Administrador'
 
   login() {

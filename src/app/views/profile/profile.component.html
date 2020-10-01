@@ -14,18 +14,17 @@
             <mdb-card-body cascade="true" class="text-center">
 
                 <div class="avatar">
-                    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" class="z-depth-1"
-                         alt="First sample avatar image">
+                  <img src="{{currentUser.photo_path}}" alt="thumbnail" class="img-thumbnail rounded-circle"
+                       style="width: 200px">
                 </div>
-                <form>
+                <form [formGroup] ="form">
 
                     <!--First row-->
                     <div class="row">
                         <!--First column-->
                         <div class="col-md-4">
                             <div class="md-form">
-                                <input [disabled]='true' type="text" id="form11"
-                                       class="form-control" mdbInput>
+                                <input  type="text" id="form11"  class="form-control" mdbInput  formControlName="name">
                                 <label class="disabled" for="form11">Nombre</label>
                             </div>
                         </div>
@@ -33,7 +32,7 @@
                         <!--Second column-->
                         <div class="col-md-4">
                             <div class="md-form">
-                                <input placeholder="John" type="text" id="form12" class="form-control" mdbInput>
+                                <input placeholder="John" type="text" id="form12" class="form-control" mdbInput formControlName="paternal_surname">
                                 <label class="active" for="form12">Apellido Paterno</label>
                             </div>
                         </div>
@@ -41,14 +40,14 @@
                         <!--Third column-->
                         <div class="col-md-4">
                             <div class="md-form">
-                                <input placeholder="Doe" type="text" id="form13" class="form-control" mdbInput>
+                                <input placeholder="Doe" type="text" id="form13" class="form-control" mdbInput formControlName="maternal_surname">
                                 <label class="active" for="form13">Apellido materno</label>
                             </div>
                         </div>
                     </div>
                     <!--/.First row-->
 
-                  
+
 
                     <!--Fourth row-->
                     <div class="row">
@@ -102,11 +101,12 @@
                         <!--Card content-->
                         <mdb-card-body cascade="true" class="text-center">
                             <div class="avatar">
-                                <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" class="z-depth-1"
-                                     alt="First sample avatar image">
+                              <img src="{{currentUser.logotype_company}}" alt="thumbnail" class="img-thumbnail rounded-circle"
+                                   style="width: 200px">
                             </div>
-                            <h4>Puesto: {{currentUser.id_rol | formatRolPipe}}</h4>
-                            <h5>Photographer</h5>
+                            <h4>Estatus: {{currentUser.status_user | formatStatusPipe}}</h4>
+                          <h5>Puesto: {{currentUser.id_rol | formatRolPipe}}</h5>
+
                         </mdb-card-body>
                         <!--/.Card content-->
                     </mdb-card>

@@ -1,0 +1,129 @@
+<!--Double navigation-->
+<header>
+
+    <!-- Sidebar navigation -->
+    <mdb-sidenav #sidenav class=" fixed" [fixed]="true">
+
+
+
+      <div class="col-xl-12 col-md-12 mb-12 text-center" >
+
+        <div class="text-center">
+          <img src="{{currentUser.logotype_company}}" class="rounded img-fluid" alt="..."  style="width: 200px">
+        </div>
+
+        <p class=" flex-center title"  style="color: #0f0f0f">{{currentUser.name_company}} </p>
+        <p class=" flex-center" >{{currentUser.name_rol}}  </p>
+      </div>
+        <links>
+
+            <!--/.Search Form-->
+            <!-- Side navigation links -->
+            <li>
+                <ul class="collapsible collapsible-accordion">
+                    <mdb-squeezebox [multiple]="false" aria-multiselectable="false">
+                        <mdb-item>
+                            <mdb-item-head mdbWavesEffect>
+                                <mdb-icon fas icon="bell" class="mr-1"></mdb-icon>Actividades
+                            </mdb-item-head>
+                            <mdb-item-body>
+                                <ul>
+                                  <li>
+                                    <a routerLink="calendar" class="waves-effect" mdbWavesEffect>Eventos</a>
+                                  </li>
+                                    <li>
+                                        <a routerLink="profiles/profile1" class="waves-effect" mdbWavesEffect>Agregar</a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="profiles/profile2" class="waves-effect" mdbWavesEffect>Editar</a>
+                                    </li>
+                                </ul>
+                            </mdb-item-body>
+                        </mdb-item>
+
+                        <mdb-item class="no-collase">
+                            <mdb-item-head mdbWavesEffect routerLink="users" class="mr-1">
+                              <mdb-icon fas icon="user-friends"></mdb-icon>Usuarios
+                            </mdb-item-head>
+                            <mdb-item-body></mdb-item-body>
+                        </mdb-item>
+                        <mdb-item class="no-collase">
+                            <mdb-item-head mdbWavesEffect routerLink="chat">
+                                <mdb-icon fas icon="comments" class="mr-1"></mdb-icon>chat
+                            </mdb-item-head>
+                            <mdb-item-body></mdb-item-body>
+                        </mdb-item>
+                        <mdb-item class="no-collase">
+                            <mdb-item-head mdbWavesEffect routerLink="profile" class="mr-1">
+                              <mdb-icon fas icon="cog"></mdb-icon>Perfil
+                            </mdb-item-head>
+                        </mdb-item>
+                        <mdb-item class="no-collase">
+                            <mdb-item-head mdbWavesEffect routerLink="help">
+                                <mdb-icon fas icon="compass" class="mr-1"></mdb-icon>Help
+                            </mdb-item-head>
+                        </mdb-item>
+                        <mdb-item class="no-collase">
+                            <mdb-item-head mdbWavesEffect routerLink="sections" routerLink="charts/chart1">
+                                <i class="fa fa-th"></i> Reportes
+                            </mdb-item-head>
+                            <mdb-item-body></mdb-item-body>
+                        </mdb-item>
+
+                    </mdb-squeezebox>
+                </ul>
+            </li>
+            <!--/. Side navigation links -->
+        </links>
+
+    </mdb-sidenav>
+    <!--/. Sidebar navigation -->
+
+
+    <!-- Navbar -->
+    <mdb-navbar SideClass="navbar navbar-expand-md scrolling-navbar double-nav" [containerInside]="false">
+        <navlinks class="navbar-container">
+            <!-- SideNav slide-out button -->
+            <div class="float-xs-left">
+                <a (click)="sidenav.show()" class="button-collapse-non-fixed">
+                    <mdb-icon fas icon="bars"></mdb-icon>
+                </a>
+            </div>
+            <!--/. SideNav slide-out button -->
+        </navlinks>
+        <logo>
+            <!-- Breadcrumb-->
+            <div class="breadcrumbs breadcrumb-dn mr-auto">
+                <p>Bienvenido: {{currentUser.name}} {{currentUser.maternal_surname}}</p>
+            </div>
+            <!--/. Breadcrumb-->
+        </logo>
+        <navlinks>
+
+            <ul class="nav navbar-nav nav-flex-icons ml-auto ie-double-nav">
+
+                <li class="nav-item dropdown btn-group" dropdown>
+
+                    <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+                      <img src="{{currentUser.photo_path}}" alt="thumbnail" class="img-thumbnail rounded-circle"
+                           style="width: 30px">
+
+                      <span class="clearfix d-none d-sm-inline-block">Cuenta</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-primary dropdown-menu-right" role="menu">
+                      <a class="dropdown-item" href="/profile">Mi Perfil</a>
+
+                      <a class="dropdown-item" href="#">Cambio de contraseña</a>
+
+                      <a class="dropdown-item" (click)="logOut()">Cerrar Sesión</a>
+                    </div>
+                </li>
+            </ul>
+
+        </navlinks>
+
+    </mdb-navbar>
+    <!--/. Navbar -->
+
+</header>
+<!--/.Double navigation-->

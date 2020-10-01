@@ -1,27 +1,28 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-import { Table2Component } from './table2.component';
-import { MDBBootstrapModulesPro } from 'ng-uikit-pro-standard';
+import { ListsComponent } from './lists.component';
+import {MDBBootstrapModulesPro, TabsetConfig} from 'ng-uikit-pro-standard';
 
-describe('Table2Component', () => {
-  let component: Table2Component;
-  let fixture: ComponentFixture<Table2Component>;
+describe('ListsComponent', () => {
+  let component: ListsComponent;
+  let fixture: ComponentFixture<ListsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Table2Component ],
+      declarations: [ ListsComponent ],
       imports: [MDBBootstrapModulesPro.forRoot()],
       schemas: [
         NO_ERRORS_SCHEMA,
         CUSTOM_ELEMENTS_SCHEMA
-      ]
+      ],
+      providers: [TabsetConfig]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Table2Component);
+    fixture = TestBed.createComponent(ListsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

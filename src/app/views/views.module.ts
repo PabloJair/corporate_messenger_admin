@@ -10,11 +10,11 @@ import { CalendarModule } from 'angular-calendar';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { FooterComponent } from '../main-layout/footer/footer.component';
+import { FooterComponent } from './main-layout/footer/footer.component';
 import { BasicTableComponent } from './tables/basic-table/basic-table.component';
 import { Chart1Component } from './charts/chart1/chart1.component';
 import { Chart2Component } from './charts/chart2/chart2.component';
-import { Table2Component } from './tables/table2/table2.component';
+import { InformationUserComponent } from './users/information/information-user.component';
 import { Chart3Component } from './charts/chart3/chart3.component';
 import { ModalsComponent } from './modals/modals.component';
 import { TypographyComponent } from './css/typography/typography.component';
@@ -52,7 +52,9 @@ import { TestComponent } from './test/test/test.component';
 import { SectionsComponent } from './sections/sections.component';
 import {DeleteModalComponent} from './delete-modal/delete-modal.component';
 import { ProfileComponent } from './profile/profile.component';
-import { FormatRolPipePipe } from '../pipes/format-rol-pipe.pipe';
+import { FormatRolPipe } from '../pipes/format-rol.pipe';
+import {FormatStatusPipe} from '../pipes/format-status.pipe';
+import {ChatComponent} from './chat/chat.component';
 
 @NgModule({
   imports: [
@@ -70,13 +72,15 @@ import { FormatRolPipePipe } from '../pipes/format-rol-pipe.pipe';
     CalendarModule.forRoot()
   ],
   declarations: [
-    FormatRolPipePipe,
+    FormatStatusPipe,
+    FormatRolPipe,
 
+    ChatComponent,
     FooterComponent,
     BasicTableComponent,
     Chart1Component,
     Chart2Component,
-    Table2Component,
+    InformationUserComponent,
     Chart3Component,
     ModalsComponent,
     TypographyComponent,
@@ -85,7 +89,6 @@ import { FormatRolPipePipe } from '../pipes/format-rol-pipe.pipe';
     RegisterComponent,
     LockComponent,
     DeleteModalComponent,
-
     GridComponent,
     MediaObjectComponent,
     UtilitiesComponent,
@@ -113,17 +116,17 @@ import { FormatRolPipePipe } from '../pipes/format-rol-pipe.pipe';
     Settings3Component,
     TestComponent,
     SectionsComponent,
-    FormatRolPipePipe,
+
 
   ],
   exports: [
-    FormatRolPipePipe,
-
+    FormatRolPipe,
+    FormatStatusPipe,
     FooterComponent,
     BasicTableComponent,
     Chart1Component,
     Chart2Component,
-    Table2Component,
+    InformationUserComponent,
     Chart3Component,
     ModalsComponent,
     TypographyComponent,

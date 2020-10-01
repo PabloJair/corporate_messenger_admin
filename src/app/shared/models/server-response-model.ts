@@ -1,4 +1,4 @@
-import {ServerCode} from "./server-code.enum";
+import {ServerCode} from './server-code.enum';
 
 export class ServerResponseModel<T> {
 

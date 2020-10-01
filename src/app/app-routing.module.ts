@@ -29,7 +29,7 @@ import { IconsComponent } from './views/css/icons/icons.component';
 import { TypographyComponent } from './views/css/typography/typography.component';
 import { ModalsComponent } from './views/modals/modals.component';
 import { Chart3Component } from './views/charts/chart3/chart3.component';
-import { Table2Component } from './views/tables/table2/table2.component';
+import { InformationUserComponent } from './views/users/information/information-user.component';
 import { Chart2Component } from './views/charts/chart2/chart2.component';
 import { Chart1Component } from './views/charts/chart1/chart1.component';
 import { BasicTableComponent } from './views/tables/basic-table/basic-table.component';
@@ -47,6 +47,7 @@ import { RouterModule, Route } from '@angular/router';
 import {AuthGuardService} from './service/auth-guard.service';
 import {HomeComponent} from './views/home/home.component';
 import { ProfileComponent } from './views/profile/profile.component';
+import {ChatComponent} from './views/chat/chat.component';
 
 const routes: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -54,7 +55,10 @@ const routes: Route[] = [
   { path: 'register', component: RegisterComponent },
   { path: 'lock', component: LockComponent },
   { path: 'home', component: HomeComponent , canActivate: [AuthGuardService]},
-  { path: 'profile',component: ProfileComponent,canActivate: [AuthGuardService]},
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
+  { path: 'chat', component: ChatComponent, canActivate: [AuthGuardService] },
+  { path: 'users', component: InformationUserComponent, canActivate: [AuthGuardService] },
+
   {
     path: 'settings',
     children: [
@@ -81,13 +85,7 @@ const routes: Route[] = [
       { path: 'popovers', component: PopoversComponent },
     ], canActivate: [AuthGuardService],
   },
-  {
-    path: 'tables',
-    children: [
-      { path: 'table1', component: BasicTableComponent },
-      { path: 'table2', component: Table2Component },
-    ], canActivate: [AuthGuardService],
-  },
+
   {
     path: 'charts',
     children: [

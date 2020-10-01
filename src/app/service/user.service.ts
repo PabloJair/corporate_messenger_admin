@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {UserModel} from "../shared/models/UserModuleModel";
+import {UserModel} from './API/UserModel';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +19,10 @@ private currentUser: UserModel = null;
   public get getCurrentUser(): UserModel {
 
 
-    if(this.currentUser == null) {
+    if (this.currentUser == null) {
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
     }
-    return   this.currentUser= new UserModel()
+    return   this.currentUser
   }
 
 }
