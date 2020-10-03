@@ -22,13 +22,10 @@
       <div class="col-md-12">
         <div class="md-form">
           <span>Estatus del usuario</span>
-          <div class="spinner-border ml-5" role="status" *ngIf="!oStatus">
-          <span class="sr-only" *ngIf="!oStatus">Loading...</span>
+          <div class="spinner-border ml-5" role="status"  *ngIf="!oStatus">
+          <span class="sr-only">Loading...</span>
         </div>
-          <mdb-select [options]="statusOptionsSelect" [disabled]="!oStatus"
-                      class="colorful-select dropdown-primary" formControlName="status" (selected)="statusChange($event)" >
-
-          </mdb-select>
+          <mdb-select [options]="statusOptionsSelect" [disabled]="!oStatus" class="colorful-select dropdown-primary" formControlName="status" (selected)="statusChange($event)" ></mdb-select>
         </div>
       </div>
 
@@ -70,14 +67,20 @@
       <div class="col-md-12">
         <div class="md-form">
           <span> Area</span>
-          <mdb-select [options]="areas"   class="colorful-select dropdown-primary" formControlName="area"  (selected)="areaChange($event)"> </mdb-select>
+          <div class="spinner-border ml-5" role="status"  *ngIf="!oArea">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <mdb-select [options]="areas"  [disabled]="!oArea" class="colorful-select dropdown-primary" formControlName="area"  (selected)="areaChange($event)"> </mdb-select>
         </div>
       </div>
 
       <div class="col-md-12">
         <div class="md-form">
           <span> Rol</span>
-          <mdb-select [options]="roles"   class="colorful-select dropdown-primary" formControlName="rol" (selected)="rolChange($event)"> </mdb-select>
+          <div class="spinner-border ml-5" role="status"  *ngIf="!oRol">
+            <span class="sr-only">Loading...</span>
+          </div>
+          <mdb-select [options]="roles"  [disabled]="!oRol"  class="colorful-select dropdown-primary" formControlName="rol" (selected)="rolChange($event)"> </mdb-select>
         </div>
       </div>
       <!--/.Fourth row-->

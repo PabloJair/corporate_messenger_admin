@@ -17,13 +17,16 @@ import {NavigationModule} from './views/main-layout/navigation/navigation.module
 import { HomeComponent } from './views/home/home.component';
 import { LoaderComponent } from './views/lodaer-component/loader.component';
 import { EditUserModalComponent } from './views/users/edit-user-modal/edit-user-modal.component';
+import { AddUserModalComponent } from './views/users/add-user-modal/add-user-modal.component';
+import {FormatStatusPipe} from './pipes/format-status.pipe';
+import {FormatRolPipe} from './pipes/format-rol.pipe';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         LoaderComponent,
-        EditUserModalComponent,
+
 
     ],
     imports: [
@@ -37,12 +40,11 @@ import { EditUserModalComponent } from './views/users/edit-user-modal/edit-user-
         ErrorModule,
         ToastModule.forRoot(),
         ReactiveFormsModule,
+
         AgmCoreModule.forRoot({
             apiKey: 'your key here'
         })
     ],
- //   exports: [FormatRolPipe],
-
     providers: [MDBSpinningPreloader],
     bootstrap: [AppComponent],
     schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
