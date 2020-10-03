@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {AuthService} from '../../../service/auth.service';
 import {UserService} from '../../../service/user.service';
-import {UserModel} from '../../../service/API/UserModel';
+import {UserModel} from '../../../shared/models/UserModel';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class NavigationComponent implements OnInit {
   constructor(private auth: AuthService, private userService: UserService) {
     this.clicked = this.clicked !== undefined;
     this.currentUser = userService.getCurrentUser
-
+    this.currentUser = this.currentUser != null ? this.currentUser : new UserModel()
 
 
   }

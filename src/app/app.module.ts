@@ -16,12 +16,14 @@ import {ErrorModule} from './views/errors/error.module';
 import {NavigationModule} from './views/main-layout/navigation/navigation.module';
 import { HomeComponent } from './views/home/home.component';
 import { LoaderComponent } from './views/lodaer-component/loader.component';
+import { EditUserModalComponent } from './views/users/edit-user-modal/edit-user-modal.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         LoaderComponent,
+        EditUserModalComponent,
 
     ],
     imports: [

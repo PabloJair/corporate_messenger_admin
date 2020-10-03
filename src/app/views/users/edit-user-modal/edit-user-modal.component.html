@@ -1,0 +1,96 @@
+
+  <!--Header-->
+  <div class="modal-header">
+    <p class="heading lead">Editar usuario</p>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+      <span aria-hidden="true" class="white-text">×</span>
+    </button>
+  </div>
+
+  <!--Body-->
+  <div class="modal-body" style="width: 100%" >
+
+    <div class="avatar flex-center">
+      <img src="{{user.photo_path}}" alt="thumbnail" class="img-thumbnail rounded-circle"
+           style="width: 100px">
+    </div>
+    <hr>
+    <span class="flex-center">{{user.email}}</span>
+
+    <form [formGroup] ="form">
+
+      <div class="col-md-12">
+        <div class="md-form">
+          <span>Estatus del usuario</span>
+          <div class="spinner-border ml-5" role="status" *ngIf="!oStatus">
+          <span class="sr-only" *ngIf="!oStatus">Loading...</span>
+        </div>
+          <mdb-select [options]="statusOptionsSelect" [disabled]="!oStatus"
+                      class="colorful-select dropdown-primary" formControlName="status" (selected)="statusChange($event)" >
+
+          </mdb-select>
+        </div>
+      </div>
+
+      <div class="row">
+        <!--First column-->
+        <div class="col-md-4">
+          <div class="md-form">
+            <input  type="text" id="form11"  class="form-control" mdbInput  formControlName="name">
+            <label class="disabled" for="form11">Nombre</label>
+          </div>
+        </div>
+
+        <!--Second column-->
+        <div class="col-md-4">
+          <div class="md-form">
+            <input placeholder="John" type="text" id="form12" class="form-control" mdbInput formControlName="paternal_surname">
+            <label class="active" for="form12">Apellido Paterno</label>
+          </div>
+        </div>
+
+        <!--Third column-->
+        <div class="col-md-4">
+          <div class="md-form">
+            <input placeholder="Doe" type="text" id="form13" class="form-control" mdbInput formControlName="maternal_surname">
+            <label class="active" for="form13">Apellido materno</label>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="col-md-6">
+        <div class="md-form">
+          <input placeholder="Telefono" type="number" id="form14" class="form-control" mdbInput formControlName="phone_number">
+          <label class="active" for="form13">Telefono</label>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="md-form">
+          <span> Area</span>
+          <mdb-select [options]="areas"   class="colorful-select dropdown-primary" formControlName="area"  (selected)="areaChange($event)"> </mdb-select>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="md-form">
+          <span> Rol</span>
+          <mdb-select [options]="roles"   class="colorful-select dropdown-primary" formControlName="rol" (selected)="rolChange($event)"> </mdb-select>
+        </div>
+      </div>
+      <!--/.Fourth row-->
+    </form>
+    <!--Contact Form-->
+
+  </div>
+
+  <!--Footer-->
+  <div class="modal-footer justify-content-center">
+    <a type="button" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Actualizar
+      <mdb-icon fas icon="paper-plane" class="ml-1" (click)="update()"></mdb-icon>
+    </a>
+    <a type="button" mdbBtn color="primary" outline="true" class="waves-effect" data-dismiss="modal"
+       mdbWavesEffect (click)="close()">Cerrar</a>
+  </div>

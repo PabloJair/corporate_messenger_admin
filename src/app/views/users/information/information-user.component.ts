@@ -1,11 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MessengerCorporativoApiService} from '../../../service/API/messenger-corporativo-api.service';
 import {ServerCode} from '../../../shared/models/server-code.enum';
-import {UserModel} from '../../../service/API/UserModel';
+import {UserModel} from '../../../shared/models/UserModel';
 import {LoaderComponent} from '../../lodaer-component/loader.component';
 import {MDBModalService} from 'ng-uikit-pro-standard';
 import {UserService} from '../../../service/user.service';
 import PaginationModel from '../../../shared/models/PaginationModel';
+import {EditUserModalComponent} from '../edit-user-modal/edit-user-modal.component';
+import AreaModel from '../../../shared/models/AreaModel';
+import RolModel from '../../../shared/models/RolModel';
 
 @Component({
   selector: 'app-table2',
@@ -16,7 +19,7 @@ import PaginationModel from '../../../shared/models/PaginationModel';
 export class InformationUserComponent implements OnInit {
 
   @Input() shadows = true;
-  modalRef
+  loaderRef
 
   tableData: UserModel[] = []
   total: number
@@ -29,13 +32,14 @@ export class InformationUserComponent implements OnInit {
 
   constructor(private service: MessengerCorporativoApiService, private mdbService: MDBModalService, private currentUser: UserService) { }
   ngOnInit() {
-     this.modalRef = this.mdbService.show(LoaderComponent)
+     this.loaderRef = this.mdbService.show(LoaderComponent)
+
     this.lastPageDisable = false
     this.nextPageDisable = false
 
     this.service.getUsersInformation(this.currentUser.getCurrentUser.id_company)
       .subscribe(value => {
-        this.modalRef.hide()
+        this.loaderRef.hide()
 
         if (value.Code === ServerCode.SUCCESS) {
 
@@ -47,7 +51,7 @@ export class InformationUserComponent implements OnInit {
         }
 
       }, error => {
-        this.modalRef.hide()
+        this.loaderRef.hide()
 
 
       })
@@ -72,7 +76,7 @@ export class InformationUserComponent implements OnInit {
   previous() {
     this.service.getUsersInformation(this.currentUser.getCurrentUser.id_company, this.pagination.prev_page_url)
       .subscribe(value => {
-        this.modalRef.hide()
+        this.loaderRef.hide()
 
         if (value.Code === ServerCode.SUCCESS) {
 
@@ -86,7 +90,7 @@ export class InformationUserComponent implements OnInit {
         }
 
       }, error => {
-        this.modalRef.hide()
+        this.loaderRef.hide()
 
 
       })
@@ -96,7 +100,7 @@ export class InformationUserComponent implements OnInit {
 
     this.service.getUsersInformation(this.currentUser.getCurrentUser.id_company, this.pagination.next_page_url)
       .subscribe(value => {
-        this.modalRef.hide()
+        this.loaderRef.hide()
 
         if (value.Code === ServerCode.SUCCESS) {
 
@@ -110,10 +114,49 @@ export class InformationUserComponent implements OnInit {
         }
 
       }, error => {
-        this.modalRef.hide()
+        this.loaderRef.hide()
 
 
       })
+
+  }
+
+  edit(selectedUser: UserModel) {
+
+     const _areas: AreaModel[] = [];
+    const _rols: RolModel[] = [];
+    this.loaderRef = this.mdbService.show(LoaderComponent)
+
+    this.service.getAllAreas().subscribe(areas => {
+      if (areas.Code === ServerCode.SUCCESS) {
+        // @ts-ignore
+        areas.Data.forEach(area => _areas.push( { value: area.id_area, label: area.name_area}))
+        this.service.getAllRol().subscribe(roles => {
+          if (roles.Code === ServerCode.SUCCESS) {
+
+            this.loaderRef.hide()
+            // @ts-ignore
+            roles.Data.forEach(rol => _rols.push({value: rol.id_rol, label: rol.name_rol}))
+            this.mdbService.show(EditUserModalComponent, {data: {
+                user: selectedUser,
+                areas: _areas,
+                roles: _rols
+              }}).content.onCloseEdit.subscribe(v => {
+
+                this.ngOnInit()
+            })
+
+
+          }
+
+        })
+
+      }
+
+      }, error => {
+
+
+    })
 
   }
 }

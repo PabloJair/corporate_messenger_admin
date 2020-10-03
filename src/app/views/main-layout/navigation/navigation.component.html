@@ -9,10 +9,10 @@
       <div class="col-xl-12 col-md-12 mb-12 text-center" >
 
         <div class="text-center">
-          <img src="{{currentUser.logotype_company}}" class="rounded img-fluid" alt="..."  style="width: 200px">
+          <img src="{{currentUser.logotype_company==null?'':currentUser.logotype_company}}" class="rounded img-fluid" alt="..."  style="width: 200px">
         </div>
 
-        <p class=" flex-center title"  style="color: #0f0f0f">{{currentUser.name_company}} </p>
+        <p class=" flex-center title"  style="color: #0f0f0f">{{currentUser.name_company==null?'':currentUser.name_company}} </p>
         <p class=" flex-center" >{{currentUser.name_rol}}  </p>
       </div>
         <links>

@@ -1,4 +1,4 @@
-import {ModuleModel} from '../../shared/models/UserModuleModel';
+import {ModuleModel} from './UserModuleModel';
 
 export  class UserModel {
   public token = ''

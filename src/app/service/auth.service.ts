@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 import {ServerResponseModel} from '../shared/models/server-response-model';
 import {Router} from '@angular/router';
 import {UserService} from './user.service';
-import {UserModel} from './API/UserModel';
+import {UserModel} from '../shared/models/UserModel';
 
 @Injectable({
   providedIn: 'root'
