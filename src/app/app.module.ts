@@ -20,6 +20,7 @@ import { EditUserModalComponent } from './views/users/edit-user-modal/edit-user-
 import { AddUserModalComponent } from './views/users/add-user-modal/add-user-modal.component';
 import {FormatStatusPipe} from './pipes/format-status.pipe';
 import {FormatRolPipe} from './pipes/format-rol.pipe';
+import { PermissionUserModalComponent } from './views/users/permission-user-modal/permission-user-modal.component';
 
 @NgModule({
     declarations: [

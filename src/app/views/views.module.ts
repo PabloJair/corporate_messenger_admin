@@ -27,6 +27,7 @@ import {ChatComponent} from './chat/chat.component';
 import {EditUserModalComponent} from './users/edit-user-modal/edit-user-modal.component';
 import {AddUserModalComponent} from './users/add-user-modal/add-user-modal.component';
 import {ProfileComponent} from './profile/profile.component';
+import {PermissionUserModalComponent} from './users/permission-user-modal/permission-user-modal.component';
 
 @NgModule({
   imports: [
@@ -54,7 +55,9 @@ import {ProfileComponent} from './profile/profile.component';
     EditUserModalComponent,
     AddUserModalComponent,
     EventCalendarComponent,
-    ProfileComponent
+    ProfileComponent,
+    PermissionUserModalComponent,
+
 
 
   ],
@@ -67,7 +70,9 @@ import {ProfileComponent} from './profile/profile.component';
     LoginComponent,
     RegisterComponent,
     LockComponent,
-    ProfileComponent
+    ProfileComponent,
+    PermissionUserModalComponent,
+
 
   ],
   schemas: [NO_ERRORS_SCHEMA]
