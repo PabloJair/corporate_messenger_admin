@@ -1,0 +1,172 @@
+<mdb-card cascade="true" narrower="true" [ngClass]="{ 'z-depth-0': !shadows }">
+  <!--Card image-->
+  <div
+    class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center"
+  >
+
+    <a href="" class="white-text mx-6">Usuarios</a>
+
+    <div>
+      <button
+        type="button"
+        mdbBtn
+        outline="true"
+        color="white"
+        rounded="true"
+        size="sm"
+        class="px-2"
+      >
+        <mdb-icon fas icon="plus" class="mt-0"></mdb-icon>
+      </button>
+
+    </div>
+  </div>
+  <!--/Card image-->
+
+  <div class="px-4">
+    <div class="table-wrapper">
+      <!--Table-->
+      <table class="table table-hover mb-0">
+        <!--Table head-->
+        <thead>
+        <tr>
+
+          <th class="th-lg" >
+            <a>Fotografia
+              <mdb-icon fas icon="image"></mdb-icon>
+            </a>
+          </th>
+          <th class="th-lg">
+            <a (click)="sortBy('name')"
+            >Nombre
+              <mdb-icon fas icon="sort" class="ml-1"></mdb-icon>
+            </a>
+          </th>
+          <th class="th-lg">
+            <a (click)="sortBy('paternal_surname')"
+            >Apellido paterno
+              <mdb-icon fas icon="sort" class="ml-1"></mdb-icon>
+            </a>
+          </th>
+          <th class="th-lg">
+            <a (click)="sortBy('username')"
+            >Apellido materno
+            </a>
+          </th>
+          <th class="th-lg">
+            <a (click)="sortBy('email')"
+            >Correo
+              <mdb-icon fas icon="sort" class="ml-1"></mdb-icon>
+            </a>
+          </th>
+
+          <th class="th-lg">
+            <a (click)="sortBy('status_user')"
+            >Estatus
+              <mdb-icon fas icon="sort" class="ml-1"></mdb-icon>
+            </a>
+          </th>
+
+          <th class="th-lg">
+            <a>Acciones
+              <mdb-icon fas icon="bolt" size="lg" class="amber-text pr-3" aria-hidden="true"></mdb-icon>
+            </a>
+          </th>
+
+        </tr>
+        </thead>
+        <!--Table head-->
+
+        <!--Table body-->
+        <tbody>
+        <tr *ngFor="let row of tableData">
+          <td>   <img src="{{row.photo_path}}" alt="thumbnail" class="img-thumbnail rounded-circle"
+                      style="width: 50px"></td>
+          <td>{{ row.name }}</td>
+          <td>{{ row.paternal_surname }}</td>
+          <td>{{ row.maternal_surname }}</td>
+          <td>{{ row.email }}</td>
+          <td>{{ row.status_user | formatStatusPipe }}</td>
+
+          <td>
+            <button
+              type="button"
+              mdbBtn
+              color="info"
+              rounded="true"
+              size="sm"
+              class="px-2"
+              (click)="showEvents(row)"
+            >
+              <mdb-icon fab icon="500px"></mdb-icon>
+            </button>
+
+            <button
+              type="button"
+              mdbBtn
+              color="danger"
+              rounded="true"
+              size="sm"
+              class="px-2"
+              (click)="addEvents(row)"
+
+            >
+              <mdb-icon far icon="calendar-plus"></mdb-icon>
+            </button>
+
+          </td>
+        </tr>
+        </tbody>
+        <!--Table body-->
+      </table>
+      <!--Table-->
+    </div>
+
+    <hr class="my-0" />
+
+    <!--Bottom Table UI-->
+    <div class="d-flex justify-content-between">
+      <!--Pagination -->
+      <nav class="my-4">
+        <ul class="pagination pagination-circle pg-blue mb-0 flex-wrap">
+          <!--First-->
+          <li class="page-item" [ngClass]="{disabled:lastPageDisable}">
+            <a class="page-link" (click)="previous()">Anterior</a>
+          </li>
+
+          <!--Arrow left-->
+          <li class="page-item" >
+            <a class="page-link" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Anterior</span>
+            </a>
+          </li>
+
+          <!--Numbers-->
+          <li class="page-item " [ngClass]="{active:pagination.current_page == (i+1)}" *ngFor="let row of [].constructor(total);let i = index">
+            <a class="page-link  waves-effect"  mdbWavesEffect>{{i+1}}
+
+            </a>
+          </li>
+
+
+          <!--Arrow right-->
+          <li class="page-item" >
+            <a class="page-link waves-effect" mdbWavesEffect aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Siguiente</span>
+
+            </a>
+          </li>
+
+          <!--First-->
+          <li class="page-item" [ngClass]="{disabled:nextPageDisable}">
+            <a class="page-link waves-effect" mdbWavesEffect (click)="next()">Siguiente</a>
+          </li>
+        </ul>
+      </nav>
+      <!--/Pagination -->
+    </div>
+    <!--Bottom Table UI-->
+  </div>
+</mdb-card>

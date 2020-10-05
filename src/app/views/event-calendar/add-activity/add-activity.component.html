@@ -1,0 +1,96 @@
+
+<!--Header-->
+<div class="modal-header">
+  <p class="heading lead">Nueva Actividad</p>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+    <span aria-hidden="true" class="white-text">×</span>
+  </button>
+</div>
+
+<!--Body-->
+<div class="modal-body" style="width: 100%" >
+
+  <form [formGroup] ="form">
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="md-form">
+          <mdb-date-picker [inline]="true"  [options]="myDatePickerOptions" [placeholder]="'Fecha inicio '" formControlName="start_date" ></mdb-date-picker>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="md-form">
+          <mdb-time-picker
+            [buttonLabel]="'OK'"
+            [twelvehour]="false"
+            [darktheme]="false"
+            [placeholder]="'Hora inicio'"
+            [label]="'Hora inicio'"
+            formControlName="start_time"
+          ></mdb-time-picker>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="md-form">
+          <mdb-date-picker [inline]="true"  [options]="myDatePickerOptions" [placeholder]="'Fecha Final '" formControlName="end_date"
+          ></mdb-date-picker>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="md-form">
+          <mdb-time-picker
+            [buttonLabel]="'OK'"
+            [twelvehour]="false"
+            [darktheme]="false"
+            [placeholder]="'Hora final'"
+            [label]="'Hora final'"
+            formControlName="end_time"
+          ></mdb-time-picker>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+    <div class="col-md-12">
+      <div class="md-form">
+        <span>Tipo de Actividad</span>
+        <mdb-select [options]="options" class="colorful-select dropdown-primary" formControlName="type_activity" ></mdb-select>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="md-form">
+        <textarea type="text" id="form7" class="md-textarea md-textarea-auto form-control" mdbInput formControlName="notes" ></textarea>
+        <label for="form7">Notas</label>
+      </div>
+    </div>
+
+
+
+
+
+
+    <!--/.Fourth row-->
+  </form>
+  <!--Contact Form-->
+
+</div>
+
+<!--Footer-->
+<div class="modal-footer justify-content-center">
+  <a type="button" mdbBtn color="primary" class="waves-light" mdbWavesEffect *ngIf="form.valid"> Agregar
+    <mdb-icon fas icon="paper-plane" class="ml-1" (click)="add()" ></mdb-icon>
+  </a>
+  <a type="button" mdbBtn color="primary" outline="true" class="waves-effect" data-dismiss="modal"
+     mdbWavesEffect (click)="close()">Cerrar</a>
+</div>
