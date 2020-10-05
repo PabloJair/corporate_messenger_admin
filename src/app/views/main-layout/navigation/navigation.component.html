@@ -22,24 +22,14 @@
             <li>
                 <ul class="collapsible collapsible-accordion">
                     <mdb-squeezebox [multiple]="false" aria-multiselectable="false">
-                        <mdb-item>
-                            <mdb-item-head mdbWavesEffect>
-                                <mdb-icon fas icon="bell" class="mr-1"></mdb-icon>Actividades
-                            </mdb-item-head>
-                            <mdb-item-body>
-                                <ul>
-                                  <li>
-                                    <a routerLink="calendar" class="waves-effect" mdbWavesEffect>Eventos</a>
-                                  </li>
-                                    <li>
-                                        <a routerLink="profiles/profile1" class="waves-effect" mdbWavesEffect>Agregar</a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="profiles/profile2" class="waves-effect" mdbWavesEffect>Editar</a>
-                                    </li>
-                                </ul>
-                            </mdb-item-body>
-                        </mdb-item>
+
+                      <mdb-item class="no-collase">
+                        <mdb-item-head mdbWavesEffect routerLink="user-event" class="mr-1">
+                          <mdb-icon fas icon="calendar"></mdb-icon>Actividades
+                        </mdb-item-head>
+                        <mdb-item-body></mdb-item-body>
+                      </mdb-item>
+
 
                         <mdb-item class="no-collase">
                             <mdb-item-head mdbWavesEffect routerLink="users" class="mr-1">

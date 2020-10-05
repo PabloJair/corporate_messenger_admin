@@ -9,6 +9,7 @@ import PaginationModel from '../../../shared/models/PaginationModel';
 import {EditUserModalComponent} from '../edit-user-modal/edit-user-modal.component';
 import AreaModel from '../../../shared/models/AreaModel';
 import RolModel from '../../../shared/models/RolModel';
+import {PermissionUserModalComponent} from '../permission-user-modal/permission-user-modal.component';
 
 @Component({
   selector: 'app-table2',
@@ -158,5 +159,36 @@ export class InformationUserComponent implements OnInit {
 
     })
 
+  }
+
+  permission(row: UserModel) {
+    this.loaderRef = this.mdbService.show(LoaderComponent)
+
+    const _modulesNotAssigment: AreaModel[] = [];
+    this.service.getNotAssigmentModules(row).subscribe(modulesnotAssigment => {
+
+
+      if (modulesnotAssigment.Code === ServerCode.SUCCESS) {
+        // @ts-ignore
+        modulesnotAssigment.Data.forEach(moduleNot => _modulesNotAssigment.push({ value: moduleNot.id_company_module, label: moduleNot.name_module}))
+        this.service.getPermission(row).subscribe(permission => {
+          this.loaderRef.hide()
+
+          this.mdbService.show(PermissionUserModalComponent, {data: {
+              user: row,
+              modulesNoyAssigment: _modulesNotAssigment,
+              modulesAssigment: permission.Data
+            }}).content.onCloseEdit.subscribe(v => {
+
+            this.ngOnInit()
+          })
+
+        }, error => {
+          this.loaderRef.hide()
+
+        })
+
+      }
+    }, error => { this.loaderRef.hide()})
   }
 }

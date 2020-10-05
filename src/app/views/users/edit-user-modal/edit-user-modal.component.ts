@@ -25,6 +25,16 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
   statusOptionsSelect: any;
 
 
+  public form: FormGroup = new FormGroup({
+    name: new FormControl(null, [Validators.required, Validators.email]),
+    paternal_surname: new FormControl(null, [Validators.required, Validators.max(10), Validators.minLength(6)]),
+    maternal_surname: new FormControl(null, [Validators.required, Validators.max(10), Validators.minLength(6)]),
+    status: new FormControl(null, Validators.required),
+    rol: new FormControl(null, Validators.required),
+    area: new FormControl(null, Validators.required),
+    phone_number: new FormControl(null, [Validators.required]),
+
+  });
 
 
 
@@ -63,16 +73,6 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
 
 
 
-  public form: FormGroup = new FormGroup({
-    name: new FormControl(null, [Validators.required, Validators.email]),
-    paternal_surname: new FormControl(null, [Validators.required, Validators.max(10), Validators.minLength(6)]),
-    maternal_surname: new FormControl(null, [Validators.required, Validators.max(10), Validators.minLength(6)]),
-    status: new FormControl(null, Validators.required),
-    rol: new FormControl(null, Validators.required),
-    area: new FormControl(null, Validators.required),
-    phone_number: new FormControl(null, [Validators.required]),
-
-  });
 
   ngOnInit(): void {
 

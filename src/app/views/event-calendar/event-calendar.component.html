@@ -11,7 +11,7 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="activeDayIsOpen = false"
         >
-          Previous
+          ATRAS
         </div>
         <div
           mdbBtn
@@ -21,7 +21,7 @@
           mwlCalendarToday
           [(viewDate)]="viewDate"
         >
-          Today
+          HOY
         </div>
         <div
           mdbBtn
@@ -32,7 +32,7 @@
           [(viewDate)]="viewDate"
           (viewDateChange)="activeDayIsOpen = false"
         >
-          Next
+          SIGUIENTE
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
           (click)="view = 'month'"
           [class.active]="view === 'month'"
         >
-          Month
+          MES
         </div>
         <div
           mdbBtn
@@ -57,7 +57,7 @@
           (click)="view = 'week'"
           [class.active]="view === 'week'"
         >
-          Week
+          SEMANA
         </div>
         <div
           mdbBtn
@@ -66,7 +66,7 @@
           (click)="view = 'day'"
           [class.active]="view === 'day'"
         >
-          Day
+          DIA
         </div>
       </div>
     </div>
@@ -80,6 +80,7 @@
       [refresh]="refresh"
       [activeDayIsOpen]="activeDayIsOpen"
       (dayClicked)="dayClicked($event.day)"
+
       (eventClicked)="handleEvent('Clicked', $event.event)"
       (eventTimesChanged)="eventTimesChanged($event)"
     >

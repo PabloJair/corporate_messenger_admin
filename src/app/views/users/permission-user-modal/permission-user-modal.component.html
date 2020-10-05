@@ -1,1 +1,63 @@
-<p>permission-user-modal works!</p>
+
+<!--Header-->
+<div class="modal-header">
+  <p class="heading lead">Permisos de usuario</p>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+    <span aria-hidden="true" class="white-text">×</span>
+  </button>
+</div>
+
+<!--Body-->
+<div class="modal-body" style="width: 100%" >
+  <form [formGroup] ="form">
+
+    <div class="col-md-12" *ngIf="modulesNoyAssigment.length!=0">
+      <div class="md-form">
+
+        <button mdbBtn color="primary" type="button" (click)="addModule()"  >
+          Agregar Modulo
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="oNewModule"></span>
+          <span class="sr-only">Loading...</span>
+        </button>
+
+        <mdb-select [options]="modulesNoyAssigment" [disabled]="oNewModule" class="colorful-select dropdown-primary" formControlName="module"  placeholder="Escoge el modulo" (selected)="onSelectedModule($event)" ></mdb-select>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <mdb-accordion>
+        <mdb-accordion-item [collapsed]="true"  *ngFor="let row of modulesAssigment">
+          <mdb-accordion-item-head>{{row.name_module}}</mdb-accordion-item-head>
+          <mdb-accordion-item-body>
+            <button
+              type="button"
+              mdbBtn
+              color="danger"
+              rounded="true"
+              size="sm"
+              class="px-2"
+              (click)="delete(row)"
+            >
+              <mdb-icon far icon="trash-alt"></mdb-icon>              </button>
+            <mdb-checkbox [checked]="row.can_update==1" (change)="permissionChange($event,row,'can_update')">Editar</mdb-checkbox>
+            <mdb-checkbox [checked]="row.can_create==1" (change)="permissionChange($event,row,'can_create')">Crear</mdb-checkbox>
+            <mdb-checkbox [checked]="row.can_delete==1" (change)="permissionChange($event,row,'can_delete')">Eliminar</mdb-checkbox>
+            <mdb-checkbox [checked]="row.can_select==1" (change)="permissionChange($event,row,'can_select')">Seleccionar</mdb-checkbox>
+
+          </mdb-accordion-item-body>
+        </mdb-accordion-item>
+      </mdb-accordion>
+
+
+    </div>
+
+  </form>
+  <!--Contact Form-->
+
+</div>
+
+<!--Footer-->
+<div class="modal-footer justify-content-center">
+  <a type="button" mdbBtn color="primary" outline="true" class="waves-effect" data-dismiss="modal"
+     mdbWavesEffect (click)="close()">Cerrar</a>
+</div>

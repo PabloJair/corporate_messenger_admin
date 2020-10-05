@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  HOST: 'http://0.0.0.0:8000/api/',
+  HOST: 'http://192.168.100.2:8000/api/',
   statusOptionsSelect: [
     { value: '1', label: 'Activo.'                    } ,
     { value: '2', label: 'Desactivado.'               } ,

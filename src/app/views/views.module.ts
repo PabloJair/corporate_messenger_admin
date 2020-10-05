@@ -4,9 +4,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AgmCoreModule } from '@agm/core';
 
-import { CalendarModule } from 'angular-calendar';
+import {CalendarModule, DateAdapter} from 'angular-calendar';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -28,7 +27,9 @@ import {EditUserModalComponent} from './users/edit-user-modal/edit-user-modal.co
 import {AddUserModalComponent} from './users/add-user-modal/add-user-modal.component';
 import {ProfileComponent} from './profile/profile.component';
 import {PermissionUserModalComponent} from './users/permission-user-modal/permission-user-modal.component';
-
+import { SelectedUserEventComponent } from './event-calendar/selected-user/selected-user-event.component';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { AddActivityComponent } from './event-calendar/add-activity/add-activity.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -38,7 +39,10 @@ import {PermissionUserModalComponent} from './users/permission-user-modal/permis
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
-    CalendarModule.forRoot()
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   declarations: [
     FormatStatusPipe,
@@ -57,6 +61,8 @@ import {PermissionUserModalComponent} from './users/permission-user-modal/permis
     EventCalendarComponent,
     ProfileComponent,
     PermissionUserModalComponent,
+    SelectedUserEventComponent,
+    AddActivityComponent,
 
 
 

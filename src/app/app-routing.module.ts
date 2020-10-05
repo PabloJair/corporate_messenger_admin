@@ -17,6 +17,7 @@ import {AuthGuardService} from './service/auth-guard.service';
 import {HomeComponent} from './views/home/home.component';
 import { ProfileComponent } from './views/profile/profile.component';
 import {ChatComponent} from './views/chat/chat.component';
+import {SelectedUserEventComponent} from './views/event-calendar/selected-user/selected-user-event.component';
 
 const routes: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -28,7 +29,9 @@ const routes: Route[] = [
   { path: 'chat', component: ChatComponent, canActivate: [AuthGuardService] },
   { path: 'users', component: InformationUserComponent, canActivate: [AuthGuardService] },
   { path: 'chart1', component: Chart1Component, canActivate: [AuthGuardService] },
-  { path: 'calendar', component: EventCalendarComponent, canActivate: [AuthGuardService] },
+  { path: 'user-event/calendar', component: EventCalendarComponent, canActivate: [AuthGuardService] },
+  { path: 'user-event', component: SelectedUserEventComponent, canActivate: [AuthGuardService] },
+
   { path: 'test', component: TestComponent , canActivate: [AuthGuardService]},
   { path: '**', component: NotFoundComponent , canActivate: [AuthGuardService]},
 ];

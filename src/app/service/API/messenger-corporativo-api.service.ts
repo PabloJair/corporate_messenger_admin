@@ -11,6 +11,8 @@ import {UserModel} from '../../shared/models/UserModel';
 import PaginationModel from '../../shared/models/PaginationModel';
 import AreaModel from '../../shared/models/AreaModel';
 import RolModel from '../../shared/models/RolModel';
+import {ModuleModel} from '../../shared/models/UserModuleModel';
+import {ActivityAssigment} from '../../shared/models/ActivityAssigment';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,20 @@ export class MessengerCorporativoApiService {
   private  API_CHANGE_AREA = 'user/changeArea'
   private  API_CHANGE_STATUS = 'user/changeStatus'
   private  API_CHANGE_PROFILE = 'user/updateProfile'
+
+  // Modules
+  private  API_GET_PERMISSONS = 'user/modules'
+  private  API_GET_NOTASSIGMENT_MODULE = 'user/notAssigmentModules'
+  private  API_UPDATE_PERMISSION_MODULE = 'user/modules/updatePermission'
+  private  API_ADD_PERMISSION_MODULE = 'user/modules/addToUser'
+  private  API_DELETE_PERMISSION_MODULE = 'user/modules/delete'
+
+  // Activities
+
+  private  API_GET_ACTIVITY_FOR_MOTH = 'assigment/for/moth/'
+
+  private  API_ADD_ACTIVITY_ASSIGMENT = 'assigment/add/'
+
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -73,10 +89,59 @@ export class MessengerCorporativoApiService {
   }
 
 
+  getAssigmentForMonth(idUser: number): Observable<ServerResponseModel<ActivityAssigment[]>>  {
+
+    return this.httpClient.get<ServerResponseModel<ActivityAssigment[]>>
+    (`${this.PHP_API_SERVER}${this.API_GET_ACTIVITY_FOR_MOTH}${idUser}`);
+
+  }
+
+  addAssigment(item: ActivityAssigment): Observable<ServerResponseModel<ActivityAssigment[]>>  {
+
+    return this.httpClient.post<ServerResponseModel<ActivityAssigment[]>>
+    (`${this.PHP_API_SERVER}${this.API_ADD_ACTIVITY_ASSIGMENT}`, item);
+
+  }
+
+
+  getNotAssigmentModules(user: UserModel): Observable<ServerResponseModel<ModuleModel[]>>  {
+
+    return this.httpClient.get<ServerResponseModel<ModuleModel[]>>
+    (`${this.PHP_API_SERVER}${this.API_GET_NOTASSIGMENT_MODULE}/${user.id_user}`);
+
+  }
+
+  getPermission(user: UserModel): Observable<ServerResponseModel<ModuleModel[]>>  {
+
+    return this.httpClient.get<ServerResponseModel<ModuleModel[]>>
+    (`${this.PHP_API_SERVER}${this.API_GET_PERMISSONS}/${user.id_user}`);
+
+  }
   updateUser(user: UserModel): Observable<ServerResponseModel<UserModel>>  {
 
     return this.httpClient.patch<ServerResponseModel<UserModel>>
     (`${this.PHP_API_SERVER}${this.API_CHANGE_STATUS}/${user.id_user}`, user);
+
+  }
+
+  addModuleToUser(data: any): Observable<ServerResponseModel<UserModel>>  {
+
+    return this.httpClient.post<ServerResponseModel<UserModel>>
+    (`${this.PHP_API_SERVER}${this.API_ADD_PERMISSION_MODULE}`, data);
+
+  }
+
+  updatePermission(info: ModuleModel , data: any): Observable<ServerResponseModel<UserModel>>  {
+
+    return this.httpClient.patch<ServerResponseModel<UserModel>>
+    (`${this.PHP_API_SERVER}${this.API_UPDATE_PERMISSION_MODULE}/${info.id_permission_user_application}`, data);
+
+  }
+
+  deleteModule(data: ModuleModel): Observable<ServerResponseModel<UserModel>>  {
+
+    return this.httpClient.delete<ServerResponseModel<UserModel>>
+    (`${this.PHP_API_SERVER}${this.API_DELETE_PERMISSION_MODULE}/${data.id_permission_user_application}`);
 
   }
 }

@@ -4,11 +4,11 @@ export class ModuleModel {
   can_select: boolean;
   can_delete: boolean;
   can_create: boolean;
-  id_module_app: number;
+  id_company_module: number;
   id_module: number;
 
   name_module: string;
-  id_permission_user_module: number;
+  id_permission_user_application: number;
   icon_module: string;
 }
 
