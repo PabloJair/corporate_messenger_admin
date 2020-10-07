@@ -29,7 +29,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {PermissionUserModalComponent} from './users/permission-user-modal/permission-user-modal.component';
 import { SelectedUserEventComponent } from './event-calendar/selected-user/selected-user-event.component';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { AddActivityComponent } from './event-calendar/add-activity/add-activity.component';
+import { AddOrEditActivityComponent } from './event-calendar/add-or-Edit-activity/add-or-edit-activity.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -62,7 +62,7 @@ import { AddActivityComponent } from './event-calendar/add-activity/add-activity
     ProfileComponent,
     PermissionUserModalComponent,
     SelectedUserEventComponent,
-    AddActivityComponent,
+    AddOrEditActivityComponent,
 
 
 

@@ -9,13 +9,16 @@ import {ServerCode} from '../../../shared/models/server-code.enum';
 
 @Component({
   selector: 'app-add-activity',
-  templateUrl: './add-activity.component.html',
-  styleUrls: ['./add-activity.component.scss']
+  templateUrl: './add-or-edit-activity.component.html',
+  styleUrls: ['./add-or-edit-activity.component.scss']
 })
-export class AddActivityComponent implements OnInit {
-  @Output('onClose') onCloseModal = new EventEmitter< AddActivityComponent>()
+export class AddOrEditActivityComponent implements OnInit {
+  @Output('onClose') onCloseModal = new EventEmitter< AddOrEditActivityComponent>()
   user: UserModel;
   selectedDate: string;
+  editAssigmentActivity: ActivityAssigment;
+  isEdit: boolean;
+
   loaderRef
   options = [
     {value: '1', label: 'Actividad'},
@@ -24,10 +27,10 @@ export class AddActivityComponent implements OnInit {
     {value: '4', label: 'Incapacidad'},
     {value: '5', label: 'Permisos'}
   ];
-
   public myDatePickerOptions: IMyOptions = {
     // Your options
   };
+
   constructor(public modalRef: MDBModalRef,
               private  editUserConfig: ModalOptions,
               private service: MessengerCorporativoApiService,
@@ -65,9 +68,17 @@ export class AddActivityComponent implements OnInit {
   private get type_activity() { return this.form.get('type_activity'); }
 
   ngOnInit(): void {
-    this.start_date.setValue(this.selectedDate)
-    this.end_date.setValue(this.selectedDate)
-
+    if (!this.isEdit) {
+      this.start_date.setValue(this.selectedDate)
+      this.end_date.setValue(this.selectedDate)
+    } else {
+      this.start_date.setValue(this.editAssigmentActivity.start_date)
+      this.end_date.setValue(this.editAssigmentActivity.end_date)
+      this.start_time.setValue(this.editAssigmentActivity.start_time)
+      this.end_time.setValue(this.editAssigmentActivity.end_time)
+      this.notes.setValue(this.editAssigmentActivity.notes)
+      this.type_activity.setValue(this.editAssigmentActivity.type_activity)
+    }
 
   }
 
@@ -99,7 +110,6 @@ export class AddActivityComponent implements OnInit {
 
         if (value.Code === ServerCode.SUCCESS) {
           this.alert.info('Agregado correctamente')
-
           this.close()
         }
 
@@ -111,4 +121,39 @@ export class AddActivityComponent implements OnInit {
        })
 
   }
+  edit() {
+
+    this.loaderRef = this.mdbService.show(LoaderComponent)
+
+    const item: ActivityAssigment = new ActivityAssigment()
+
+    item.start_date = this.start_date.value;
+    item.end_date = this.end_date.value;
+    item.start_time = this.start_time.value;
+    item.end_time = this.end_time.value;
+    item.notes = this.notes.value;
+    item.type_activity = this.type_activity.value;
+    item.id_user = this.user.id_user;
+    item.status_activity = '1'
+    item.id_assgiment_of_activity = this.editAssigmentActivity.id_assgiment_of_activity
+
+
+    this.service.editAssigment(item).subscribe(value => {
+        this.loaderRef.hide()
+
+        if (value.Code === ServerCode.SUCCESS) {
+          this.alert.info('Agregado correctamente')
+
+          this.close()
+        }
+
+      },
+      error => {
+        this.alert.info('Error al actualizar')
+
+
+      })
+
+  }
+
 }

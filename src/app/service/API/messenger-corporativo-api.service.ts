@@ -13,6 +13,7 @@ import AreaModel from '../../shared/models/AreaModel';
 import RolModel from '../../shared/models/RolModel';
 import {ModuleModel} from '../../shared/models/UserModuleModel';
 import {ActivityAssigment} from '../../shared/models/ActivityAssigment';
+import {ChatModel} from '../../shared/models/ChatModel';
 
 @Injectable({
   providedIn: 'root'
@@ -38,10 +39,18 @@ export class MessengerCorporativoApiService {
 
   // Activities
 
-  private  API_GET_ACTIVITY_FOR_MOTH = 'assigment/for/moth/'
+  private API_GET_ACTIVITY_FOR_MOTH = 'assigment/for/moth/'
+  private API_UPDATE_TIME_ASSIGMENT = 'assigment/updatetime/'
+  private API_ADD_ACTIVITY_ASSIGMENT = 'assigment/add/'
+  private API_EDIT_ACTIVITY_ASSIGMENT = 'assigment/edit/'
 
-  private  API_ADD_ACTIVITY_ASSIGMENT = 'assigment/add/'
+  private API_DELETE_ACTIVITY_ASSIGMENT = 'assigment/delete/'
 
+  // CHAT
+
+  private API_CHAT_ALL_USER = 'user/all'
+  private API_CHAT_LASTMESSAGE = 'message/room/{idUser}/{idUserTo}/{date}'
+  private API_CHAT_BYE_USER = 'message/by/'
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -52,12 +61,14 @@ export class MessengerCorporativoApiService {
   constructor(private httpClient: HttpClient) {
 
   }
+  getUsersInformation( idCompany: number= 0, url: string= '', page: number= -1): Observable<ServerResponseModel<PaginationModel<UserModel>>> {
+    let _url = (url === '') ? (`${this.PHP_API_SERVER}${this.API_GET_USER_INFORMATION}/${idCompany}/2`) : url
 
-  getUsersInformation( idCompany: number= 0, url: string= ''): Observable<ServerResponseModel<PaginationModel<UserModel>>> {
-    return this.httpClient.get<ServerResponseModel<PaginationModel<UserModel>>>(
-      (url === '') ? (`${this.PHP_API_SERVER}${this.API_GET_USER_INFORMATION}/${idCompany}/2`) : url );
+    if (page !== -1) {
+      _url += '?page=' + page
+    }
+    return this.httpClient.get<ServerResponseModel<PaginationModel<UserModel>>>(_url);
   }
-
 
   getAllAreas(): Observable<ServerResponseModel<AreaModel[]>> {
     return this.httpClient.get<ServerResponseModel<AreaModel[]>>(`${this.PHP_API_SERVER}${this.API_AREA}`);
@@ -102,6 +113,12 @@ export class MessengerCorporativoApiService {
     (`${this.PHP_API_SERVER}${this.API_ADD_ACTIVITY_ASSIGMENT}`, item);
 
   }
+  editAssigment(item: ActivityAssigment): Observable<ServerResponseModel<ActivityAssigment[]>>  {
+
+    return this.httpClient.patch<ServerResponseModel<ActivityAssigment[]>>
+    (`${this.PHP_API_SERVER}${this.API_EDIT_ACTIVITY_ASSIGMENT}${item.id_assgiment_of_activity}`, item);
+
+  }
 
 
   getNotAssigmentModules(user: UserModel): Observable<ServerResponseModel<ModuleModel[]>>  {
@@ -138,12 +155,41 @@ export class MessengerCorporativoApiService {
 
   }
 
+  updateTimeAssigment(data: ActivityAssigment): Observable<ServerResponseModel<number>>  {
+
+    return this.httpClient.patch<ServerResponseModel<number>>
+    (`${this.PHP_API_SERVER}${this.API_UPDATE_TIME_ASSIGMENT}${data.id_assgiment_of_activity}`, data);
+
+  }
+
+  deleteActivityAssigment(data: number): Observable<ServerResponseModel<UserModel>>  {
+
+    return this.httpClient.delete<ServerResponseModel<UserModel>>
+    (`${this.PHP_API_SERVER}${this.API_DELETE_ACTIVITY_ASSIGMENT}${data}`);
+
+  }
+
   deleteModule(data: ModuleModel): Observable<ServerResponseModel<UserModel>>  {
 
     return this.httpClient.delete<ServerResponseModel<UserModel>>
     (`${this.PHP_API_SERVER}${this.API_DELETE_PERMISSION_MODULE}/${data.id_permission_user_application}`);
 
   }
+
+  getAllUserForChat(): Observable<ServerResponseModel<UserModel[]>>  {
+
+    return this.httpClient.get<ServerResponseModel<UserModel[]>>
+    (`${this.PHP_API_SERVER}${this.API_CHAT_ALL_USER}`);
+
+  }
+
+  getMenssagesBy(id_user: number): Observable<ServerResponseModel<ChatModel[]>>  {
+
+    return this.httpClient.get<ServerResponseModel<ChatModel[]>>
+    (`${this.PHP_API_SERVER}${this.API_CHAT_BYE_USER}${id_user}`);
+
+  }
+
 }
 
 

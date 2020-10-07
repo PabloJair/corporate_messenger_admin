@@ -98,7 +98,7 @@
               class="px-2"
               (click)="showEvents(row)"
             >
-              <mdb-icon fab icon="500px"></mdb-icon>
+              <mdb-icon far icon="calendar-plus"></mdb-icon>
             </button>
 
             <button
@@ -144,7 +144,7 @@
 
           <!--Numbers-->
           <li class="page-item " [ngClass]="{active:pagination.current_page == (i+1)}" *ngFor="let row of [].constructor(total);let i = index">
-            <a class="page-link  waves-effect"  mdbWavesEffect>{{i+1}}
+            <a class="page-link  waves-effect" (click)="goToPage(i+1)"   mdbWavesEffect>{{i+1}}
 
             </a>
           </li>

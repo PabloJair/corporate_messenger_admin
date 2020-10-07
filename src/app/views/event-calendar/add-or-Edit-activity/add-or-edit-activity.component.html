@@ -88,8 +88,8 @@
 
 <!--Footer-->
 <div class="modal-footer justify-content-center">
-  <a type="button" mdbBtn color="primary" class="waves-light" mdbWavesEffect *ngIf="form.valid"> Agregar
-    <mdb-icon fas icon="paper-plane" class="ml-1" (click)="add()" ></mdb-icon>
+  <a type="button" mdbBtn color="primary" class="waves-light" mdbWavesEffect *ngIf="form.valid"  (click)="isEdit ? edit():add()">{{isEdit? "Actualizar":"Agregar"}}
+    <mdb-icon fas icon="paper-plane" class="ml-1" ></mdb-icon>
   </a>
   <a type="button" mdbBtn color="primary" outline="true" class="waves-effect" data-dismiss="modal"
      mdbWavesEffect (click)="close()">Cerrar</a>

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddActivityComponent } from './add-activity.component';
+import { AddOrEditActivityComponent } from './add-or-edit-activity.component';
 
 describe('AddActivityComponent', () => {
-  let component: AddActivityComponent;
-  let fixture: ComponentFixture<AddActivityComponent>;
+  let component: AddOrEditActivityComponent;
+  let fixture: ComponentFixture<AddOrEditActivityComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddActivityComponent ]
+      declarations: [ AddOrEditActivityComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddActivityComponent);
+    fixture = TestBed.createComponent(AddOrEditActivityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

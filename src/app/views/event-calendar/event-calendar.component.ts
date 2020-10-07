@@ -1,19 +1,18 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent
-} from 'angular-calendar';
+import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent} from 'angular-calendar';
 
 
 import {Router} from '@angular/router';
 import {UserModel} from '../../shared/models/UserModel';
 import {MessengerCorporativoApiService} from '../../service/API/messenger-corporativo-api.service';
 import {Subject} from 'rxjs';
-import {EditUserModalComponent} from '../users/edit-user-modal/edit-user-modal.component';
-import {MDBModalService} from 'ng-uikit-pro-standard';
-import {AddActivityComponent} from './add-activity/add-activity.component';
+import {MDBModalService, ToastService} from 'ng-uikit-pro-standard';
+import {AddOrEditActivityComponent} from './add-or-Edit-activity/add-or-edit-activity.component';
 import {LoaderComponent} from '../lodaer-component/loader.component';
+import {ActivityAssigment} from '../../shared/models/ActivityAssigment';
+import {ServerCode} from '../../shared/models/server-code.enum';
+import * as temp from 'moment'; const moment = temp['default'];
+
 
 @Component({
   selector: 'app-event-calendar',
@@ -25,9 +24,7 @@ import {LoaderComponent} from '../lodaer-component/loader.component';
 export class EventCalendarComponent implements OnInit {
 
   view = 'month';
-
   viewDate: Date = new Date();
-
   colors: any = {
     CREADA: {
       primary: '#43BD02',
@@ -58,48 +55,34 @@ export class EventCalendarComponent implements OnInit {
       secondary: '#FDF1BA'
     }
   };
-
+  activeDayIsOpen = false;
+  refresh: Subject<any> = new Subject();
+  loaderRef
+  user: UserModel;
+  assigmentActivities: ActivityAssigment[];
   actions: CalendarEventAction[] = [
 
     {
       label: '<i class="fas fa-trash-alt fa-sm red-text pr-3" aria-hidden="true"></i>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Deleted', event);
+        this.delete(event.id as number);
       }
     },
     {
       label: '<i class="fas fa-edit fa-sm indigo-text pr-3" aria-hidden="true"></i>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Deleted', event);
+        this.edit(event.id as number)
       }
     }
   ];
 
-  events: CalendarEvent[] = [
-    {
-      start: new Date(),
-      end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3),
-      title: 'A 3 day event',
-      color: this.colors.yellow,
-      actions: this.actions,
-      draggable: true
-    },
-    {
-      start: new Date(),
-      title: 'An event with no end date',
-      color: this.colors.yellow,
-      draggable: true
-    }
-  ];
-
-  activeDayIsOpen = false;
-
-  refresh: Subject<any> = new Subject();
-  loaderRef
-  user: UserModel;
-  constructor(private router: Router, private service: MessengerCorporativoApiService, private mdbService: MDBModalService) {
+  events: CalendarEvent[] = [];
 
 
+  constructor(private router: Router,
+              private service: MessengerCorporativoApiService,
+              private mdbService: MDBModalService,
+              private alert: ToastService) {
     if ( this.router.getCurrentNavigation().extras.state === undefined) {
       this.router.navigate(['/user-event']).then(r => {})
       return
@@ -127,12 +110,11 @@ export class EventCalendarComponent implements OnInit {
 
   ngOnInit() {
     this.loaderRef = this.mdbService.show(LoaderComponent)
-
     this.service.getAssigmentForMonth(this.user.id_user).subscribe(items => {
-
-
       this.events = []
-      items.Data.forEach(value => {
+
+      this.assigmentActivities = items.Data
+      this.assigmentActivities.forEach(value => {
         this.events.push(
           {
             start: new Date(`${value.start_date}T${value.start_time}`),
@@ -140,19 +122,12 @@ export class EventCalendarComponent implements OnInit {
             title: value.notes,
             color: this.getColorType(value.type_activity),
             actions: this.actions,
-            draggable: true
-          },
-
-        )
-
-
+            draggable: true,
+            id: value.id_assgiment_of_activity
+          })
         this.refresh.next()
-
-
       })
-
       this.loaderRef.hide()
-
     }, error => {
 
 
@@ -162,15 +137,7 @@ export class EventCalendarComponent implements OnInit {
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (Date.parse(date.toDateString()) === Date.parse(this.viewDate.toDateString()) && this.activeDayIsOpen || events.length === 0) {
       this.activeDayIsOpen = false;
-
-      this.mdbService.show(AddActivityComponent, {data: {
-          user: this.user,
-          selectedDate: this.castDate(date)
-
-        }}).content.onCloseModal.subscribe(v => {
-
-        this.ngOnInit()
-      })
+      this.add(date)
     } else {
       this.activeDayIsOpen = true;
       this.viewDate = date;
@@ -178,26 +145,171 @@ export class EventCalendarComponent implements OnInit {
   }
 
   castDate (date: Date) {
-
-    const d = ('0' + date.getDate()).slice(-2);
-
-// current month
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-
-// current year
-    const year = date.getFullYear();
-
-    return year + '-' + month + '-' + d
-
+    return moment(date).format('YYYY-MM-DD')
   }
 
-  eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+
+  castTime (date: Date) {
+    return  moment(date).format('HH:mm:ss')
+  }
+  eventChangeOnlyDay({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
     event.start = newStart;
     event.end = newEnd;
-    this.handleEvent('Dropped or resized', event);
-    this.refresh.next();
+    const item = new ActivityAssigment();
+    item.start_date = this.castDate(newStart)
+    item.end_date = this.castDate(newEnd)
+    item.id_assgiment_of_activity = event.id  as number
+    this.loaderRef = this.mdbService.show(LoaderComponent)
+     this.service.updateTimeAssigment(item).subscribe(value => {
+       this.loaderRef.hide()
+
+       if (value.Code === ServerCode.SUCCESS) {
+
+         this.updateLocalActivity(item)
+         this.alert.success(value.Message, 'Atención!!')
+
+       } else {
+         this.alert.error('No se puede conectar  con el servidor', 'Atención!!')
+         this.ngOnInit()
+       }
+
+     }, error => {
+
+       this.loaderRef.hide()
+       this.alert.error('No se puede conectar  con el servidor', 'Atención!!')
+
+     })
   }
 
+
+  updateLocalActivity(item: ActivityAssigment) {
+
+    this.assigmentActivities.forEach(v => {
+
+      if (item.id_assgiment_of_activity === v.id_assgiment_of_activity) {
+
+        v.end_time = item.end_time ?? v.end_time
+        v.start_time = item.start_time ?? v.start_time
+        v.start_date = item.start_date ?? v.start_date
+        v.end_date = item.end_date ?? v.end_date
+        this.refresh.next()
+
+        return;
+      }}
+    )
+
+  }
+
+  eventChangeDayTime({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+    event.start = newStart;
+    event.end = newEnd;
+    const item = new ActivityAssigment();
+    item.start_time = this.castTime(newStart)
+    item.end_time = this.castTime(newEnd)
+    item.start_date = this.castDate(newStart)
+    item.end_date = this.castDate(newEnd)
+    item.id_assgiment_of_activity = event.id  as number
+    this.loaderRef = this.mdbService.show(LoaderComponent)
+    this.service.updateTimeAssigment(item).subscribe(value => {
+      this.loaderRef.hide()
+
+      if (value.Code === ServerCode.SUCCESS) {
+        this.updateLocalActivity(item)
+        this.alert.success(value.Message, 'Atención!!')
+
+      } else {
+        this.alert.error('No se puede conectar  con el servidor', 'Atención!!')
+        this.ngOnInit()
+      }
+
+    }, error => {
+
+      this.loaderRef.hide()
+      this.alert.error('No se puede conectar  con el servidor', 'Atención!!')
+
+    })
+  }
+
+
+
+
+  eventChangeOnlyTime({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+    event.start = newStart;
+    event.end = newEnd;
+    const item = new ActivityAssigment();
+
+    item.start_time = this.castTime(newStart)
+    item.end_time = this.castTime(newEnd)
+    item.id_assgiment_of_activity = event.id  as number
+    this.loaderRef = this.mdbService.show(LoaderComponent)
+    this.service.updateTimeAssigment(item).subscribe(value => {
+      this.loaderRef.hide()
+
+      if (value.Code === ServerCode.SUCCESS) {
+        this.updateLocalActivity(item)
+        this.alert.success(value.Message, 'Atención!!')
+
+      } else {
+        this.alert.error('No se puede conectar  con el servidor', 'Atención!!')
+        this.ngOnInit()
+      }
+
+    }, error => {
+
+      this.loaderRef.hide()
+      this.alert.error('No se puede conectar  con el servidor', 'Atención!!')
+
+    })
+  }
+
+
+
+  add( date: Date) {
+    this.mdbService.show(AddOrEditActivityComponent, {data: {
+        user: this.user,
+
+        selectedDate: this.castDate(date),
+        isEdit: false
+      }}).content.onCloseModal.subscribe(v => {
+
+      this.ngOnInit()
+    })
+
+  }
+  edit(id: number) {
+    this.mdbService.show(AddOrEditActivityComponent, {data: {
+        user: this.user,
+
+        editAssigmentActivity : this.assigmentActivities.find(value => value.id_assgiment_of_activity === id),
+        isEdit: true
+      }}).content.onCloseModal.subscribe(v => {
+
+      this.ngOnInit()
+    })
+
+  }
+  delete(id: number) {
+    this.loaderRef = this.mdbService.show(LoaderComponent)
+
+    this.service.deleteActivityAssigment(id).subscribe(value => {
+      this.loaderRef.hide()
+
+      if (value.Code === ServerCode.SUCCESS) {
+        this.refresh.next();
+        this.alert.success(value.Message, 'Atención!!')
+        this.events = this.events.filter(o => o.id !== id)
+
+      } else {
+        this.alert.error('No se puede conectar  con el servidor', 'Atención!!')
+      }
+
+    }, error => {
+
+      this.loaderRef.hide()
+      this.alert.error('No se puede conectar  con el servidor', 'Atención!!')
+
+    })
+  }
   handleEvent(action: string, event: CalendarEvent): void {
     console.log(action, event);
   }

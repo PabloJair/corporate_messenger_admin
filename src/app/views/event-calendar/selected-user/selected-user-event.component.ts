@@ -132,4 +132,27 @@ export class SelectedUserEventComponent implements OnInit {
   addEvents(row: UserModel) {
 
   }
+
+  goToPage(number: number) {
+    this.service.getUsersInformation(this.currentUser.getCurrentUser.id_company, '', number)
+      .subscribe(value => {
+        this.loaderRef.hide()
+
+        if (value.Code === ServerCode.SUCCESS) {
+
+          this.tableData = value.Data.data
+          this.total =  value.Data.last_page
+          this.pagination = value.Data
+
+          this.lastPageDisable = (this.pagination.current_page === 1)
+          this.nextPageDisable = (this.pagination.current_page === this.pagination.last_page)
+
+        }
+
+      }, error => {
+        this.loaderRef.hide()
+
+
+      })
+  }
 }
