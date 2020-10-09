@@ -7,7 +7,7 @@
       <!-- Grid column -->
       <div class="col-md-6 col-xl-4 px-0">
 
-        <h6 class="font-weight-bold mb-3 text-center text-lg-left">Member</h6>
+        <h6 class="font-weight-bold mb-3 text-center text-lg-left">Usuarios</h6>
         <div class="white z-depth-1 px-2 pt-3 pb-0 members-panel-1 scrollbar-light-blue">
           <ul class="list-unstyled friend-list">
             <li class=" p-2" *ngFor="let row of users" >
@@ -15,10 +15,10 @@
                 <img src="{{row.photo_path}}" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1">
                 <div class="text-small">
                   <strong>{{row.name}} {{row.paternal_surname}} {{row.maternal_surname}}</strong>
-                  <p class="last-message text-muted">Hello, Are you there?</p>
+                  <p class="last-message text-muted"></p>
                 </div>
                 <div class="chat-footer">
-                  <p class="text-smaller text-muted mb-0">Just now</p>
+                  <p class="text-smaller text-muted mb-0"></p>
                 </div>
               </a>
             </li>
@@ -30,7 +30,7 @@
       <!-- Grid column -->
 
       <!-- Grid column -->
-      <div class="col-md-6 col-xl-8 pl-md-3 px-lg-auto px-0">
+      <div class="col-md-6 col-xl-8 pl-md-3 px-lg-auto px-0" *ngIf="selectedUser">
 
         <div class="chat-message">
 
@@ -39,15 +39,17 @@
               <img src="{{currentUSer.photo_path}}" alt="avatar" class="avatar rounded-circle mr-2 ml-lg-3 ml-0 z-depth-1" *ngSwitchCase="row.id_user_from">
               <div class="chat-body white p-3 ml-2 z-depth-1">
                 <div class="header">
-                  <strong class="primary-font">{{row.text_message}}</strong>
-                  <small class="pull-right text-muted"><i class="far fa-clock"></i> 12 mins ago</small>
+                  <strong class="primary-font" *ngSwitchCase="row.id_user_from">{{row.name_user_from}}</strong>
+                  <strong class="primary-font" *ngSwitchCase="row.id_user_to">{{row.name_user_from}}</strong>
+
+                  <small class="pull-right text-muted"><i class="far fa-clock"></i> {{row.time_stamp}}</small>
                 </div>
                 <hr class="w-100">
                 <p class="mb-0">
                   {{row.text_message}}
                 </p>
               </div>
-              <img src="{{(row.photo_user_to ===''||row.photo_user_to ===null)?'default_angular.png':row.photo_user_to}}" alt="avatar" class="avatar rounded-circle mr-0 ml-3 z-depth-1" *ngSwitchCase="row.id_user_to">
+              <img src="{{row.photo_user_from}}" alt="avatar" class="avatar rounded-circle mr-0 ml-3 z-depth-1" *ngSwitchCase="row.id_user_to">
 
             </li>
 
@@ -56,10 +58,11 @@
           </ul>
           <div class="white">
             <div class="form-group basic-textarea">
-              <textarea class="form-control pl-2 my-0" id="exampleFormControlTextarea2" rows="3" placeholder="Type your message here..."></textarea>
+              <textarea class="form-control pl-2 my-0" id="exampleFormControlTextarea2" rows="3" placeholder="Escribe tu mensaje aquí" [(ngModel)]="text"></textarea>
             </div>
           </div>
-          <button type="button" class="btn btn-outline-pink btn-rounded btn-sm waves-effect waves-dark float-right">Send</button>
+          <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="sendMessage()">Enviar</button>
+
 
         </div>
 

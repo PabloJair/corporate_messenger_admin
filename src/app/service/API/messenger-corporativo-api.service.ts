@@ -13,7 +13,7 @@ import AreaModel from '../../shared/models/AreaModel';
 import RolModel from '../../shared/models/RolModel';
 import {ModuleModel} from '../../shared/models/UserModuleModel';
 import {ActivityAssigment} from '../../shared/models/ActivityAssigment';
-import {ChatModel} from '../../shared/models/ChatModel';
+import {ChatModel, SendMessage, SendMessageRespondeModel} from '../../shared/models/ChatModel';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +51,9 @@ export class MessengerCorporativoApiService {
   private API_CHAT_ALL_USER = 'user/all'
   private API_CHAT_LASTMESSAGE = 'message/room/{idUser}/{idUserTo}/{date}'
   private API_CHAT_BYE_USER = 'message/by/'
+  private API_CHAT_BYE_USER_FROM_USER_TO = 'message/userFrom/id_user_from/userTo/id_user_to/pagination/no'
+  private API_CHAT_SEND_MESSAGE = 'message/send'
+
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -189,7 +192,24 @@ export class MessengerCorporativoApiService {
     (`${this.PHP_API_SERVER}${this.API_CHAT_BYE_USER}${id_user}`);
 
   }
+  getMenssagesByUserFromUserto(id_user_from: number, id_user_to: number): Observable<ServerResponseModel<PaginationModel<ChatModel>>>  {
 
+    // tslint:disable-next-line:no-shadowed-variable
+    let url2 = this.API_CHAT_BYE_USER_FROM_USER_TO.replace('id_user_from', id_user_from.toString())
+    url2 = url2.replace('id_user_to', id_user_to.toString())
+    url2 = url2.replace('no', '50')
+    return this.httpClient.get<ServerResponseModel<PaginationModel<ChatModel>>>
+    (`${this.PHP_API_SERVER}${url2}`);
+
+  }
+
+  sendMessage(data: SendMessage): Observable<ServerResponseModel<SendMessageRespondeModel>> {
+
+    // tslint:disable-next-line:no-shadowed-variable
+    return this.httpClient.post<ServerResponseModel<SendMessageRespondeModel>>
+    (`${this.PHP_API_SERVER}${this.API_CHAT_SEND_MESSAGE}`, data);
+
+  }
 }
 
 
