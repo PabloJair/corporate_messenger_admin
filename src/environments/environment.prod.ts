@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  HOST: 'https://contentmanager.coffeecode.com.mx/',
+  HOST: 'https://gs.s10plus.com/',
   statusOptionsSelect: [
     { value: '1', label: 'Activo.'                    } ,
     { value: '2', label: 'Desactivado.'               } ,
